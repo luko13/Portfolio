@@ -1,3 +1,64 @@
+/* ============ PRELOADER ============ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  background: var(--washi);
+  display: grid;
+  place-items: center;
+}
+
+.pre-seal {
+  position: relative;
+  filter: drop-shadow(2px 5px 14px color-mix(in srgb, var(--hanko) 30%, transparent));
+}
+
+.pre-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pre-petal {
+  position: absolute;
+  top: 55%;
+  width: 14px;
+  opacity: 0;
+}
+
+.pre-counter {
+  position: absolute;
+  bottom: clamp(1.5rem, 5vh, 3rem);
+  left: var(--gutter);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+/* ============ CURSOR ============ */
+.cursor {
+  display: none;
+  position: fixed;
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--sakura-deep);
+  border-radius: 50%;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  opacity: 0.7;
+  transition: scale 0.35s var(--ease-osaka), opacity 0.3s;
+  scale: 0.5;
+}
+
+.cursor.big {
+  scale: 1.1;
+  opacity: 0.9;
+}
+
 /* ============ NAV ============ */
 .nav {
   position: fixed;

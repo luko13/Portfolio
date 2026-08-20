@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap, SplitText, prefersReducedMotion } from '../motion/gsap'
+import { introDone } from '../motion/introGate'
 import { useLang } from '../i18n/LangContext'
 import { profile } from '../data/profile'
 
@@ -9,7 +10,12 @@ export function Hero() {
 
   useEffect(() => {
     if (!ref.current || prefersReducedMotion()) return
-    const ctx = gsap.context(() => {
+    let cancelled = false
+    let ctx: ReturnType<typeof gsap.context> | undefined
+    // El reveal del hero espera a que el preloader termine
+    introDone.then(() => {
+      if (cancelled || !ref.current) return
+      ctx = gsap.context(() => {
       const split = SplitText.create('.hero-title', { type: 'chars', mask: 'chars' })
       gsap.from(split.chars, {
         yPercent: 110,
@@ -39,8 +45,12 @@ export function Hero() {
         scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true },
       })
       return () => split.revert()
-    }, ref)
-    return () => ctx.revert()
+      }, ref)
+    })
+    return () => {
+      cancelled = true
+      ctx?.revert()
+    }
   }, [lang])
 
   return (
