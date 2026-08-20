@@ -1,0 +1,36 @@
+:root {
+  /* Paleta Hanami: papel washi + sakura pastel + tinta sumi */
+  --washi: #f7f2ec;
+  --washi-soft: #efe7de;
+  --washi-deep: #e6dccf;
+  --ink: #2b2733;
+  --ink-dim: #6b6272;
+  --sakura: #e8a7b7;
+  --sakura-soft: #f3d2da;
+  --sakura-deep: #c96f8a;
+  --matcha: #9db08c;
+  --hanko: #c43a3e;
+  --gold: #b99a66;
+
+  /* Tipografía */
+  --font-display: 'Shippori Mincho B1', 'Times New Roman', serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Sistema de movimiento: un solo easing para entradas */
+  --ease-osaka: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-in: 0.8s;
+  --dur-hero: 1.2s;
+
+  /* Layout */
+  --page-max: 1400px;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --section-gap: clamp(7rem, 16vh, 12rem);
+
+  /* Capas */
+  --z-canvas: 0;
+  --z-content: 1;
+  --z-nav: 10;
+  --z-preview: 20;
+  --z-cursor: 40;
+  --z-preloader: 50;
+}
