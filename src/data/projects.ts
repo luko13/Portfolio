@@ -35,6 +35,7 @@ export const projects: Project[] = [
       en: 'In production with real customers. 500+ commits, web and mobile app, security audits and script-verified RLS.',
     },
     stack: ['Next.js 15', 'TypeScript', 'Supabase', 'PostgreSQL + RLS', 'Expo', 'Vitest'],
+    image: '/screenshots/oms.webp',
   },
   {
     id: 'mmento',
@@ -43,12 +44,12 @@ export const projects: Project[] = [
     year: '2025',
     kind: { es: 'App móvil', en: 'Mobile app' },
     tagline: {
-      es: 'App móvil de contenido con búsqueda vectorial y suscripciones.',
-      en: 'Content mobile app with vector search and subscriptions.',
+      es: 'La app donde los magos organizan su repertorio.',
+      en: 'The app where magicians organize their repertoire.',
     },
     context: {
-      es: 'Plataforma iOS y Android offline-first: biblioteca de contenido por categorías, búsqueda semántica y pagos in-app.',
-      en: 'Offline-first iOS and Android platform: categorized content library, semantic search and in-app payments.',
+      es: 'Plataforma iOS y Android offline-first para magos: biblioteca de técnicas por categorías, búsqueda semántica y suscripciones.',
+      en: 'Offline-first iOS and Android platform for magicians: categorized technique library, semantic search and subscriptions.',
     },
     result: {
       es: 'Publicada en producción en mmentoapp.com. Más de 570 commits, Sentry y analítica de producto integradas.',
@@ -56,6 +57,7 @@ export const projects: Project[] = [
     },
     stack: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Cloudflare', 'Sentry'],
     url: 'https://mmentoapp.com',
+    image: '/screenshots/mmento.webp',
   },
   {
     id: 'mmento-analytics',
