@@ -1,5 +1,18 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
+
+const META = {
+  es: {
+    title: 'luko13 · Full-stack developer',
+    description:
+      'Portfolio de luko13 (Luis Bravo): SaaS con clientes reales, sistemas de trading y agentes de IA. TypeScript, React, Python.',
+  },
+  en: {
+    title: 'luko13 · Full-stack developer',
+    description:
+      'Portfolio of luko13 (Luis Bravo): SaaS with real customers, trading systems and AI agents. TypeScript, React, Python.',
+  },
+}
 
 export type Lang = 'es' | 'en'
 export type L10n = { es: string; en: string }
@@ -22,6 +35,14 @@ function initialLang(): Lang {
 
 export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(initialLang)
+
+  useEffect(() => {
+    document.documentElement.lang = lang
+    document.title = META[lang].title
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute('content', META[lang].description)
+  }, [lang])
 
   const setLang = useCallback((l: Lang) => {
     setLangState(l)
