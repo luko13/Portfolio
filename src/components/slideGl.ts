@@ -17,19 +17,45 @@ import { gsap } from '../motion/gsap'
 
 // Disolución entre capturas a través de una máscara de pétalos de sakura,
 // con barrido direccional, zoom sutil y borde teñido de rosa.
-const frag = /* glsl */ `
+// Modo contain: la captura se ve ENTERA y el hueco lo llena la propia
+// captura desenfocada (mipmap bias) con velo washi.
+export const slideFrag = /* glsl */ `
 precision highp float;
 uniform sampler2D tFrom;
 uniform sampler2D tTo;
 uniform sampler2D tMask;
 uniform float uProgress;
 uniform float uDir;
-uniform vec2 uScaleF; uniform vec2 uOffF;
-uniform vec2 uScaleT; uniform vec2 uOffT;
+uniform vec2 uFitF; uniform vec2 uFitT; // fracción visible por eje (contain) o recorte (cover)
+uniform float uContain;
+uniform float uCorner; // radio de esquina en UV (pantalla del iPhone); 0 = sin redondeo
+uniform float uAspect; // alto/ancho del lienzo, para esquinas circulares
 uniform vec3 uEdge;
 varying vec2 vUv;
 
+vec2 fitUv(vec2 uv, vec2 fit, float contain) {
+  // contain: mapea el área central [off, off+fit] del lienzo al [0,1] de la textura
+  // cover: muestrea el sub-rect [off, off+fit] de la textura
+  vec2 off = (1.0 - fit) * 0.5;
+  vec2 containUv = (uv - off) / fit;
+  vec2 coverUv = uv * fit + off;
+  return mix(coverUv, containUv, contain);
+}
+
+float insideBox(vec2 uv) {
+  vec2 s = step(vec2(0.0), uv) * step(uv, vec2(1.0));
+  return s.x * s.y;
+}
+
 void main() {
+  // Esquinas redondeadas (pantalla del iPhone)
+  if (uCorner > 0.0) {
+    vec2 p = abs(vUv - 0.5) * vec2(1.0, uAspect);
+    vec2 half_ = vec2(0.5, 0.5 * uAspect) - uCorner;
+    vec2 d = max(p - half_, 0.0);
+    if (length(d) > uCorner) discard;
+  }
+
   // Campo de transición: gradiente direccional mezclado con pétalos
   float g = uDir > 0.0 ? vUv.x : 1.0 - vUv.x;
   float m = texture2D(tMask, vUv * 2.5).r;
@@ -43,8 +69,20 @@ void main() {
   vec2 uvT = (vUv - 0.5) * (1.0 + 0.05 * (1.0 - uProgress)) + 0.5;
   vec2 uvF = vUv + vec2(uDir * 0.045 * uProgress, 0.0);
 
-  vec4 from = texture2D(tFrom, uvF * uScaleF + uOffF);
-  vec4 to = texture2D(tTo, uvT * uScaleT + uOffT);
+  vec2 fUv = fitUv(uvF, uFitF, uContain);
+  vec2 tUv = fitUv(uvT, uFitT, uContain);
+
+  vec4 from = texture2D(tFrom, clamp(fUv, 0.0, 1.0));
+  vec4 to = texture2D(tTo, clamp(tUv, 0.0, 1.0));
+
+  if (uContain > 0.5) {
+    // Fondo ambiental: la captura desenfocada (mipmap) con velo washi
+    vec4 bgF = texture2D(tFrom, uvF, 6.0);
+    vec4 bgT = texture2D(tTo, uvT, 6.0);
+    from = mix(mix(bgF, vec4(0.96, 0.93, 0.90, 1.0), 0.4), from, insideBox(fUv));
+    to = mix(mix(bgT, vec4(0.96, 0.93, 0.90, 1.0), 0.4), to, insideBox(tUv));
+  }
+
   vec4 color = mix(from, to, reveal);
 
   // Borde de la disolución teñido de sakura
@@ -55,16 +93,16 @@ void main() {
 }
 `
 
-const vert = /* glsl */ `
+export const slideVert = /* glsl */ `
 varying vec2 vUv;
 void main() {
   vUv = uv;
-  gl_Position = vec4(position, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
 `
 
 // Máscara procedural: pétalos con umbrales aleatorios de gris
-function makePetalMask(): CanvasTexture {
+export function makePetalMask(): CanvasTexture {
   const size = 512
   const canvas = document.createElement('canvas')
   canvas.width = canvas.height = size
@@ -75,15 +113,14 @@ function makePetalMask(): CanvasTexture {
   for (let i = 0; i < 160; i++) {
     const s = 14 + Math.random() * 34
     const v = Math.floor(Math.random() * 255)
-    ctx.save()
-    // Repetible en los bordes: pinta también los wraps cercanos
     const x = Math.random() * size
     const y = Math.random() * size
+    const rot = Math.random() * Math.PI * 2
     for (const dx of [-size, 0, size]) {
       for (const dy of [-size, 0, size]) {
         ctx.save()
         ctx.translate(x + dx, y + dy)
-        ctx.rotate(Math.random() * Math.PI * 2)
+        ctx.rotate(rot)
         ctx.scale(s / 24, s / 24)
         ctx.fillStyle = `rgb(${v},${v},${v})`
         ctx.beginPath()
@@ -97,11 +134,45 @@ function makePetalMask(): CanvasTexture {
         ctx.restore()
       }
     }
-    ctx.restore()
   }
   const tex = new CanvasTexture(canvas)
   tex.wrapS = tex.wrapT = RepeatWrapping
   return tex
+}
+
+// Fracción visible por eje para contain (imagen entera) o cover (recorte)
+export function fitFraction(imgAspect: number, boxAspect: number, contain: boolean): Vector2 {
+  if (contain ? imgAspect > boxAspect : imgAspect < boxAspect) {
+    return new Vector2(contain ? 1 : boxAspect / imgAspect, contain ? boxAspect / imgAspect : 1)
+  }
+  return new Vector2(contain ? imgAspect / boxAspect : 1, contain ? 1 : imgAspect / boxAspect)
+}
+
+export function loadSlideTextures(
+  urls: string[],
+  onFirst: (tex: Texture) => void,
+): { textures: (Texture | null)[]; dispose: () => void } {
+  const loader = new TextureLoader()
+  const textures: (Texture | null)[] = urls.map(() => null)
+  let disposed = false
+  urls.forEach((url, i) => {
+    loader.load(url, (tex) => {
+      if (disposed) {
+        tex.dispose()
+        return
+      }
+      tex.colorSpace = SRGBColorSpace
+      textures[i] = tex
+      if (i === 0) onFirst(tex)
+    })
+  })
+  return {
+    textures,
+    dispose() {
+      disposed = true
+      textures.forEach((t) => t?.dispose())
+    },
+  }
 }
 
 export interface SlideGL {
@@ -109,10 +180,11 @@ export interface SlideGL {
   destroy: () => void
 }
 
+// Carrusel plano (capturas de escritorio) sobre un quad ortográfico
 export function createSlideGL(
   canvas: HTMLCanvasElement,
   urls: string[],
-  opts: { alignTop?: boolean; onReady?: () => void },
+  opts: { onReady?: () => void },
 ): SlideGL {
   const renderer = new WebGLRenderer({ canvas, antialias: false })
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -126,40 +198,34 @@ export function createSlideGL(
     tMask: { value: makePetalMask() },
     uProgress: { value: 1 },
     uDir: { value: 1 },
-    uScaleF: { value: new Vector2(1, 1) },
-    uOffF: { value: new Vector2(0, 0) },
-    uScaleT: { value: new Vector2(1, 1) },
-    uOffT: { value: new Vector2(0, 0) },
+    uFitF: { value: new Vector2(1, 1) },
+    uFitT: { value: new Vector2(1, 1) },
+    uContain: { value: 1 },
+    uCorner: { value: 0 },
+    uAspect: { value: 1 },
     uEdge: { value: new Color('#e8a7b7') },
   }
 
-  const mat = new ShaderMaterial({ vertexShader: vert, fragmentShader: frag, uniforms })
+  const mat = new ShaderMaterial({
+    vertexShader: /* glsl */ `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position, 1.0); }`,
+    fragmentShader: slideFrag,
+    uniforms,
+  })
   scene.add(new Mesh(new PlaneGeometry(2, 2), mat))
 
-  const textures: (Texture | null)[] = urls.map(() => null)
-  const loader = new TextureLoader()
   let current = 0
-  let destroyed = false
-
   const render = () => renderer.render(scene, camera)
 
-  // Encaje tipo object-fit: cover (con alineado top opcional)
-  function coverFit(tex: Texture, scale: Vector2, off: Vector2) {
+  const boxAspect = () => canvas.clientWidth / Math.max(canvas.clientHeight, 1)
+
+  function fitFor(tex: Texture): Vector2 {
     const img = tex.image as HTMLImageElement
-    const ca = canvas.clientWidth / Math.max(canvas.clientHeight, 1)
-    const ia = img.width / img.height
-    if (ia > ca) {
-      scale.set(ca / ia, 1)
-      off.set((1 - ca / ia) / 2, 0)
-    } else {
-      scale.set(1, ia / ca)
-      off.set(0, opts.alignTop ? 1 - ia / ca : (1 - ia / ca) / 2)
-    }
+    return fitFraction(img.width / img.height, boxAspect(), true)
   }
 
   function applyFits() {
-    if (uniforms.tFrom.value) coverFit(uniforms.tFrom.value, uniforms.uScaleF.value, uniforms.uOffF.value)
-    if (uniforms.tTo.value) coverFit(uniforms.tTo.value, uniforms.uScaleT.value, uniforms.uOffT.value)
+    if (uniforms.tFrom.value) uniforms.uFitF.value.copy(fitFor(uniforms.tFrom.value))
+    if (uniforms.tTo.value) uniforms.uFitT.value.copy(fitFor(uniforms.tTo.value))
   }
 
   function resize() {
@@ -170,18 +236,11 @@ export function createSlideGL(
   const ro = new ResizeObserver(resize)
   ro.observe(canvas)
 
-  urls.forEach((url, i) => {
-    loader.load(url, (tex) => {
-      if (destroyed) return
-      tex.colorSpace = SRGBColorSpace
-      textures[i] = tex
-      if (i === 0) {
-        uniforms.tFrom.value = tex
-        uniforms.tTo.value = tex
-        resize()
-        opts.onReady?.()
-      }
-    })
+  const { textures, dispose: disposeTex } = loadSlideTextures(urls, (tex) => {
+    uniforms.tFrom.value = tex
+    uniforms.tTo.value = tex
+    resize()
+    opts.onReady?.()
   })
 
   let tween: gsap.core.Tween | null = null
@@ -206,10 +265,9 @@ export function createSlideGL(
       })
     },
     destroy() {
-      destroyed = true
       tween?.kill()
       ro.disconnect()
-      textures.forEach((t) => t?.dispose())
+      disposeTex()
       uniforms.tMask.value.dispose()
       mat.dispose()
       renderer.dispose()
