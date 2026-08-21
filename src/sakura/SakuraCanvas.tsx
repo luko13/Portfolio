@@ -19,10 +19,17 @@ export function SakuraCanvas() {
     let destroyed = false
     let sceneHandle: { destroy: () => void } | null = null
 
-    import('./scene').then(({ createSakuraScene }) => {
-      if (destroyed || !canvasRef.current) return
-      sceneHandle = createSakuraScene(canvasRef.current)
-    })
+    // Arranca la escena cuando el hilo principal respira (mejora TBT en móvil)
+    const start = () =>
+      import('./scene').then(({ createSakuraScene }) => {
+        if (destroyed || !canvasRef.current) return
+        sceneHandle = createSakuraScene(canvasRef.current)
+      })
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => start(), { timeout: 1500 })
+    } else {
+      setTimeout(start, 600)
+    }
 
     // Los pétalos amainan visualmente donde hay texto (entre el hero y el footer)
     const ctx = gsap.context(() => {
