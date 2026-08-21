@@ -35,6 +35,16 @@ export function ProjectIndex() {
                     <li key={s}>{s}</li>
                   ))}
                 </ul>
+                {p.images?.[0] && (
+                  <img
+                    className="pindex-shot"
+                    src={p.images[0]}
+                    alt={p.title}
+                    loading="lazy"
+                    width={1600}
+                    height={1000}
+                  />
+                )}
               </div>
             </li>
           ))}
