@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 · luko13</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="robots" content="noindex" />
+    <style>
+      * { margin: 0; box-sizing: border-box; }
+      body {
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        background: #f7f2ec;
+        color: #2b2733;
+        font-family: 'Georgia', serif;
+        text-align: center;
+        padding: 2rem;
+      }
+      .petal { width: 42px; margin-inline: auto; display: block; animation: fall 5s ease-in-out infinite; }
+      @keyframes fall {
+        0% { transform: translateY(-14px) rotate(-12deg); }
+        50% { transform: translateY(10px) rotate(10deg); }
+        100% { transform: translateY(-14px) rotate(-12deg); }
+      }
+      @media (prefers-reduced-motion: reduce) { .petal { animation: none; } }
+      h1 { font-size: clamp(3.5rem, 10vw, 6rem); font-weight: 700; margin-top: 1.25rem; }
+      p { color: #6b6272; margin-top: 0.75rem; line-height: 1.6; }
+      .jp { font-size: 0.9rem; margin-top: 1.5rem; color: #c96f8a; }
+      a {
+        display: inline-block;
+        margin-top: 2rem;
+        color: #2b2733;
+        font-family: system-ui, sans-serif;
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-bottom: 2px solid #c96f8a;
+        padding-bottom: 0.25rem;
+      }
+      a:hover { color: #c96f8a; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <svg class="petal" viewBox="0 0 24 28" aria-hidden="true">
+        <path d="M12 27 C2 20 1 9 8 3 Q10 1.4 12 4 Q14 1.4 16 3 C23 9 22 20 12 27 Z" fill="#e8a7b7" />
+      </svg>
+      <h1>404</h1>
+      <p>Este camino no lleva a ninguna parte. / This path leads nowhere.</p>
+      <p class="jp" lang="ja">この道は行き止まり</p>
+      <a href="/">Volver al jardín · Back to the garden</a>
+    </main>
+  </body>
+</html>
