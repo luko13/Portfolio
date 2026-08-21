@@ -4,8 +4,6 @@ import {
   Color,
   DirectionalLight,
   Group,
-  InstancedBufferAttribute,
-  InstancedBufferGeometry,
   Mesh,
   MeshStandardMaterial,
   PerspectiveCamera,
@@ -19,6 +17,7 @@ import {
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { gsap, prefersReducedMotion } from '../motion/gsap'
 import { slideFrag, makePetalMask, loadSlideTextures } from './slideGl'
+import { createPetalBurst } from './petalBurst'
 
 // iPhone 3D: tilt siguiendo al cursor y transición "explosión de pétalos":
 // ráfaga 3D de pétalos + giro completo del teléfono + pantalla que se
@@ -50,73 +49,6 @@ function makeHankoTexture(): CanvasTexture {
   ctx.fillText('KO', s / 2, 102)
   return new CanvasTexture(c)
 }
-
-// Sprite de pétalo para la explosión
-function makePetalSprite(): CanvasTexture {
-  const s = 64
-  const c = document.createElement('canvas')
-  c.width = c.height = s
-  const ctx = c.getContext('2d')!
-  ctx.translate(s / 2, s / 2)
-  ctx.scale(s / 30, s / 30)
-  ctx.translate(-12, -14)
-  const grad = ctx.createRadialGradient(12, 8, 1, 12, 14, 16)
-  grad.addColorStop(0, '#f6dde3')
-  grad.addColorStop(1, '#e8a7b7')
-  ctx.fillStyle = grad
-  ctx.beginPath()
-  ctx.moveTo(12, 27)
-  ctx.bezierCurveTo(2, 20, 1, 9, 8, 3)
-  ctx.quadraticCurveTo(10, 1.4, 12, 4)
-  ctx.quadraticCurveTo(14, 1.4, 16, 3)
-  ctx.bezierCurveTo(23, 9, 22, 20, 12, 27)
-  ctx.closePath()
-  ctx.fill()
-  return new CanvasTexture(c)
-}
-
-const burstVert = /* glsl */ `
-uniform float uBurst;
-attribute vec3 aDir;
-attribute float aSpd;
-attribute vec3 aRot;
-attribute float aSize;
-varying vec2 vUv;
-varying float vFade;
-
-mat3 rotX(float a){ float c=cos(a), s=sin(a); return mat3(1.,0.,0., 0.,c,-s, 0.,s,c); }
-mat3 rotY(float a){ float c=cos(a), s=sin(a); return mat3(c,0.,s, 0.,1.,0., -s,0.,c); }
-mat3 rotZ(float a){ float c=cos(a), s=sin(a); return mat3(c,-s,0., s,c,0., 0.,0.,1.); }
-
-void main() {
-  vUv = uv;
-  float t = uBurst;
-  float travel = pow(t, 0.55) * aSpd;
-  vec3 center = aDir * travel;
-  center.y -= t * t * 0.35; // ligera gravedad
-
-  float grow = sin(min(t * 1.2, 1.0) * 3.1416);
-  vFade = 1.0 - smoothstep(0.55, 1.0, t);
-
-  float a1 = aRot.x * 6.2832 + t * (4.0 + aRot.y * 6.0);
-  float a2 = aRot.z * 6.2832 + t * 5.0;
-  vec3 p = rotY(a1) * rotX(a2) * rotZ(a1 * 0.5) * (position * aSize * grow);
-
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(center + p, 1.0);
-}
-`
-
-const burstFrag = /* glsl */ `
-precision highp float;
-uniform sampler2D uTex;
-varying vec2 vUv;
-varying float vFade;
-void main() {
-  vec4 tex = texture2D(uTex, vUv);
-  if (tex.a < 0.05) discard;
-  gl_FragColor = vec4(tex.rgb, tex.a * vFade);
-}
-`
 
 export interface Phone3D {
   show: (next: number, dir: 1 | -1) => void
@@ -181,51 +113,12 @@ export function createPhone3D(
   screen.position.z = PHONE_D / 2 + 0.002
   phone.add(screen)
 
-  const BASE_SCALE = 1.1
+  const BASE_SCALE = 0.94 // el canvas sobresale del marco; compensa el tamaño
   phone.scale.setScalar(BASE_SCALE)
 
-  // ---- Explosión de pétalos ----
-  const COUNT = 90
-  const base = new PlaneGeometry(0.085, 0.1)
-  const burstGeo = new InstancedBufferGeometry()
-  burstGeo.index = base.index
-  burstGeo.attributes.position = base.attributes.position
-  burstGeo.attributes.uv = base.attributes.uv
-  const dirs = new Float32Array(COUNT * 3)
-  const spds = new Float32Array(COUNT)
-  const rots = new Float32Array(COUNT * 3)
-  const sizes = new Float32Array(COUNT)
-  for (let i = 0; i < COUNT; i++) {
-    // dirección aleatoria en esfera, sesgada hacia el plano frontal
-    const th = Math.random() * Math.PI * 2
-    const ph = Math.acos(2 * Math.random() - 1)
-    dirs[i * 3] = Math.sin(ph) * Math.cos(th) * 1.2
-    dirs[i * 3 + 1] = Math.cos(ph) * 1.4
-    dirs[i * 3 + 2] = Math.sin(ph) * Math.sin(th) * 0.9 + 0.35
-    spds[i] = 0.55 + Math.random() * 0.9
-    rots[i * 3] = Math.random()
-    rots[i * 3 + 1] = Math.random()
-    rots[i * 3 + 2] = Math.random()
-    sizes[i] = 0.55 + Math.random() * 1.0
-  }
-  burstGeo.setAttribute('aDir', new InstancedBufferAttribute(dirs, 3))
-  burstGeo.setAttribute('aSpd', new InstancedBufferAttribute(spds, 1))
-  burstGeo.setAttribute('aRot', new InstancedBufferAttribute(rots, 3))
-  burstGeo.setAttribute('aSize', new InstancedBufferAttribute(sizes, 1))
-  burstGeo.instanceCount = COUNT
-
-  const petalTex = makePetalSprite()
-  const burstMat = new ShaderMaterial({
-    vertexShader: burstVert,
-    fragmentShader: burstFrag,
-    uniforms: { uBurst: { value: 1 }, uTex: { value: petalTex } },
-    transparent: true,
-    depthWrite: false,
-  })
-  const burst = new Mesh(burstGeo, burstMat)
-  burst.frustumCulled = false
-  burst.visible = false
-  scene.add(burst)
+  // ---- Explosión de pétalos (compartida) ----
+  const burst = createPetalBurst(90)
+  scene.add(burst.mesh)
 
   // ---- Texturas de capturas ----
   let current = 0
@@ -300,17 +193,17 @@ export function createPhone3D(
       screenUniforms.uDir.value = dir
       screenUniforms.uProgress.value = 0
 
-      burst.visible = true
-      burstMat.uniforms.uBurst.value = 0
+      burst.mesh.visible = true
+      burst.uBurst.value = 0
 
       tl = gsap
         .timeline({
           onComplete: () => {
-            burst.visible = false
+            burst.mesh.visible = false
           },
         })
         // Explosión de pétalos
-        .to(burstMat.uniforms.uBurst, { value: 1, duration: 1.15, ease: 'power2.out' }, 0)
+        .to(burst.uBurst, { value: 1, duration: 1.15, ease: 'power2.out' }, 0)
         // Giro completo del teléfono con caída y recuperación de escala
         .to(spin, { value: `+=${dir * Math.PI * 2}`, duration: 1.25, ease: 'osaka' }, 0)
         .to(spin, { dip: 0.07, duration: 0.3, ease: 'power2.in' }, 0)
@@ -327,10 +220,8 @@ export function createPhone3D(
       canvas.removeEventListener('mouseleave', onLeave)
       disposeTex()
       screenUniforms.tMask.value.dispose()
-      petalTex.dispose()
       hankoTex.dispose()
-      burstGeo.dispose()
-      burstMat.dispose()
+      burst.dispose()
       screenMat.dispose()
       bodyMat.dispose()
       body.geometry.dispose()
