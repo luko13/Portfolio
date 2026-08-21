@@ -34,8 +34,8 @@ export const projects: Project[] = [
       en: 'Every trick splits the effect from the method, each with its own video. Semantic search across 20,000+ magic products and an AI that answers questions about your own repertoire.',
     },
     result: {
-      es: 'Funciona entera sin cobertura, incluso creando trucos con vídeo: todo se sincroniza solo al volver la señal. Suscripciones nativas en iOS y Android.',
-      en: 'Fully usable offline, even creating tricks with video: everything syncs itself once the signal returns. Native subscriptions on iOS and Android.',
+      es: 'Detrás: arquitectura offline-first con cola de sincronización idempotente, búsqueda vectorial con pgvector, vídeo con subidas resumibles a Cloudflare Stream y compras in-app. Publicada en App Store y Google Play.',
+      en: 'Under the hood: offline-first architecture with an idempotent sync queue, pgvector semantic search, resumable video uploads to Cloudflare Stream and in-app purchases. Live on the App Store and Google Play.',
     },
     stack: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Cloudflare', 'Sentry'],
     url: 'https://mmentoapp.com',
@@ -64,8 +64,8 @@ export const projects: Project[] = [
       en: 'Server-stamped clock-ins (manual, QR, geofence or automatic), shift planning with plan-vs-reality, and leave computed on each person’s actual schedule.',
     },
     result: {
-      es: 'La Inspección de Trabajo entra con un enlace caducable de solo lectura, sin cuenta: los fichajes son inmutables y cada corrección deja quién, cuándo y qué. En producción con clientes reales.',
-      en: 'Labour inspectors walk in through an expiring read-only link, no account needed: entries are immutable and every correction records who, when and what. In production with real customers.',
+      es: 'Detrás: multi-tenant con aislamiento RLS probado por scripts que intentan romperlo, inmutabilidad y auditoría append-only a nivel de base de datos, backups verificados restaurándolos y 112 migraciones aditivas tras feature flags. En producción con clientes reales.',
+      en: 'Under the hood: multi-tenant RLS isolation proven by scripts that try to break it, database-level immutability with append-only auditing, backups verified by restoring them, and 112 additive migrations behind feature flags. In production with real customers.',
     },
     stack: ['Next.js 15', 'TypeScript', 'Supabase', 'PostgreSQL + RLS', 'Expo', 'Vitest'],
     url: 'https://jornal.work',
