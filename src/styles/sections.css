@@ -664,53 +664,6 @@ main,
   pointer-events: none;
 }
 
-/* ============ TARJETA WASHI (preview sin captura) ============ */
-.washi-card {
-  aspect-ratio: 16 / 10;
-  border-radius: 10px;
-  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
-  box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--ink) 35%, transparent);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  background-color: var(--washi-soft);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cg fill='none' stroke='%23c96f8a' stroke-opacity='0.08' stroke-width='1.5'%3E%3Cpath d='M0 40a40 40 0 0 1 80 0M10 40a30 30 0 0 1 60 0M20 40a20 20 0 0 1 40 0M30 40a10 10 0 0 1 20 0'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 80px 40px;
-}
-
-.washi-kind {
-  font-size: 0.6875rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-}
-
-.washi-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  font-weight: 700;
-}
-
-.washi-stack {
-  list-style: none;
-  display: flex;
-  gap: 0.75rem;
-  font-size: 0.75rem;
-  color: var(--ink-dim);
-}
-
-.preview-shot img {
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top;
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
-  box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--ink) 35%, transparent);
-}
-
 /* ============ ÍNDICE DE PROYECTOS ============ */
 .pindex-list {
   list-style: none;
@@ -773,30 +726,10 @@ main,
   border-left: 2px solid var(--sakura);
 }
 
-.pindex-preview {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: min(26rem, 30vw);
-  z-index: var(--z-preview);
-  pointer-events: none;
-  opacity: 0;
-  scale: 0.92;
-  transition: opacity 0.35s var(--ease-osaka), scale 0.35s var(--ease-osaka);
-}
-
-.pindex-preview.visible {
-  opacity: 1;
-  scale: 1;
-}
-
 @media (max-width: 900px) {
   .pindex-row {
     grid-template-columns: 1fr;
     gap: 0.35rem;
-  }
-  .pindex-preview {
-    display: none;
   }
 }
 
