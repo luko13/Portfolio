@@ -115,7 +115,7 @@ export function createPhone3D(
   screen.position.z = PHONE_D / 2 + 0.002
   phone.add(screen)
 
-  const BASE_SCALE = 1.04 // el canvas sobresale del marco; compensa el tamaño
+  const BASE_SCALE = 0.84 // margen para que el tilt y el giro nunca toquen el borde del canvas
   phone.scale.setScalar(BASE_SCALE)
 
   // ---- Explosión de pétalos (compartida) ----
