@@ -10,7 +10,7 @@ export interface Project {
   context: L10n
   result: L10n
   stack: string[]
-  image?: string // ruta en /screenshots; sin ella se usa PlaceholderShot
+  images?: string[] // slides del carrusel (/screenshots); sin ellas, layout editorial sin imagen
   url?: string
   repo?: string
 }
@@ -38,7 +38,12 @@ export const projects: Project[] = [
     },
     stack: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Cloudflare', 'Sentry'],
     url: 'https://mmentoapp.com',
-    image: '/screenshots/mmento.webp',
+    images: [
+      '/screenshots/mmento.webp',
+      '/screenshots/mmento-2.webp',
+      '/screenshots/mmento-3.webp',
+      '/screenshots/mmento-4.webp',
+    ],
   },
   {
     id: 'jornal',
@@ -60,7 +65,12 @@ export const projects: Project[] = [
     },
     stack: ['Next.js 15', 'TypeScript', 'Supabase', 'PostgreSQL + RLS', 'Expo', 'Vitest'],
     url: 'https://jornal.work',
-    image: '/screenshots/jornal.webp',
+    images: [
+      '/screenshots/jornal.webp',
+      '/screenshots/jornal-2.webp',
+      '/screenshots/jornal-3.webp',
+      '/screenshots/jornal-4.webp',
+    ],
   },
   {
     id: 'mmento-analytics',

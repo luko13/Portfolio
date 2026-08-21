@@ -5,7 +5,7 @@ import { useLang } from '../i18n/LangContext'
 import { projects } from '../data/projects'
 import type { Project } from '../data/projects'
 import { ui } from '../data/ui'
-import { PlaceholderShot } from '../components/PlaceholderShot'
+import { ProjectPreview } from '../components/PlaceholderShot'
 
 export function ProjectIndex() {
   const { lang, t } = useLang()
@@ -70,7 +70,7 @@ export function ProjectIndex() {
         ref={previewRef}
         aria-hidden="true"
       >
-        {active && <PlaceholderShot project={active} />}
+        {active && <ProjectPreview project={active} />}
       </div>
     </section>
   )

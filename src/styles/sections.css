@@ -476,59 +476,143 @@ main,
   }
 }
 
-/* ============ FRAME DE CAPTURAS ============ */
-.shot-frame {
-  background: var(--washi-soft);
-  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+/* ============ CARRUSEL DE CAPTURAS ============ */
+.carousel-frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
   border-radius: 10px;
   overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
   box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--ink) 35%, transparent);
+  background: var(--washi-soft);
 }
 
-.shot-chrome {
+.carousel-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0;
+  scale: 1.04;
+  transition: opacity 0.9s var(--ease-osaka), scale 6s linear;
+}
+
+.carousel-frame img.active {
+  opacity: 1;
+  scale: 1;
+}
+
+.carousel-dots {
   display: flex;
-  gap: 6px;
-  padding: 10px 14px;
-  border-bottom: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.9rem;
 }
 
-.shot-chrome span {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
+.carousel-dots button {
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
   background: var(--washi-deep);
+  transition: background 0.3s, width 0.3s var(--ease-osaka);
 }
 
-.shot-body {
+.carousel-dots button.active {
+  background: var(--sakura-deep);
+  width: 40px;
+}
+
+.carousel-dots button:hover {
+  background: var(--sakura);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-frame img {
+    transition: opacity 0.15s linear;
+    scale: 1;
+  }
+}
+
+/* ============ DESTACADO SIN IMAGEN (editorial) ============ */
+.fp-item.no-media {
+  position: relative;
+  grid-template-columns: 1fr;
+  padding-block: clamp(2rem, 5vh, 4rem);
+}
+
+.fp-item.no-media .fp-text {
+  max-width: 60ch;
+  position: relative;
+  z-index: 1;
+}
+
+.fp-item.no-media .fp-context,
+.fp-item.no-media .fp-result {
+  max-width: 56ch;
+  font-size: 1.0625rem;
+}
+
+.fp-watermark {
+  position: absolute;
+  top: 50%;
+  right: clamp(0rem, 6vw, 8rem);
+  transform: translateY(-50%);
+  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
+  font-size: clamp(12rem, 28vw, 24rem);
+  line-height: 1;
+  color: var(--sakura-soft);
+  opacity: 0.45;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ============ TARJETA WASHI (preview sin captura) ============ */
+.washi-card {
   aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--ink) 35%, transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  background:
-    radial-gradient(60% 80% at 70% 20%, color-mix(in srgb, var(--sakura-soft) 55%, transparent), transparent),
-    radial-gradient(50% 70% at 20% 85%, color-mix(in srgb, var(--matcha) 18%, transparent), transparent),
-    var(--washi-soft);
+  gap: 0.6rem;
+  background-color: var(--washi-soft);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cg fill='none' stroke='%23c96f8a' stroke-opacity='0.08' stroke-width='1.5'%3E%3Cpath d='M0 40a40 40 0 0 1 80 0M10 40a30 30 0 0 1 60 0M20 40a20 20 0 0 1 40 0M30 40a10 10 0 0 1 20 0'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 40px;
 }
 
-.shot-kind {
+.washi-kind {
   font-size: 0.6875rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-dim);
 }
 
-.shot-title {
+.washi-title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
   font-weight: 700;
 }
 
-.shot-frame img {
+.washi-stack {
+  list-style: none;
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--ink-dim);
+}
+
+.preview-shot img {
   aspect-ratio: 16 / 10;
   object-fit: cover;
+  object-position: top;
   width: 100%;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--ink) 35%, transparent);
 }
 
 /* ============ ÍNDICE DE PROYECTOS ============ */

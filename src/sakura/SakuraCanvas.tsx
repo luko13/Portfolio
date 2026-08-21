@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { prefersReducedMotion } from '../motion/gsap'
+import { gsap, prefersReducedMotion } from '../motion/gsap'
 import { hasWebGL2 } from './quality'
 import { useLang } from '../i18n/LangContext'
 import { ui } from '../data/ui'
@@ -24,8 +24,28 @@ export function SakuraCanvas() {
       sceneHandle = createSakuraScene(canvasRef.current)
     })
 
+    // Los pétalos amainan visualmente donde hay texto (entre el hero y el footer)
+    const ctx = gsap.context(() => {
+      gsap.to(canvasRef.current, {
+        opacity: 0.35,
+        ease: 'none',
+        scrollTrigger: { trigger: '#about', start: 'top 90%', end: 'top 45%', scrub: true },
+      })
+      gsap.fromTo(
+        canvasRef.current,
+        { opacity: 0.35 },
+        {
+          opacity: 0.85,
+          ease: 'none',
+          immediateRender: false,
+          scrollTrigger: { trigger: '#contact', start: 'top 85%', end: 'top 35%', scrub: true },
+        },
+      )
+    })
+
     return () => {
       destroyed = true
+      ctx.revert()
       sceneHandle?.destroy()
     }
   }, [])
