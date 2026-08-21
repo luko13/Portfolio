@@ -494,7 +494,7 @@ main,
 }
 
 .web-shell img,
-.phone-shell img {
+.phone-screen img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -502,53 +502,72 @@ main,
   object-fit: cover;
   object-position: top;
   opacity: 0;
+  transition: opacity 0.6s var(--ease-osaka); /* crossfade de fallback sin WebGL */
 }
 
 .web-shell img.active,
-.phone-shell img.active {
+.phone-screen img.active {
   opacity: 1;
 }
 
-/* Capturas de móvil: teléfono sobre panel washi */
+/* Canvas de la transición WebGL: cubre la pantalla del shell */
+.gl-slides {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-osaka);
+}
+
+.gl-slides.ready {
+  opacity: 1;
+}
+
+/* Capturas de móvil: teléfono grande sobre fondo ambiental (la propia captura desenfocada) */
 .is-phone .carousel-frame {
   aspect-ratio: 16 / 10;
   display: grid;
   place-items: center;
   border-radius: 10px;
+  overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
-  background:
-    radial-gradient(70% 90% at 75% 15%, color-mix(in srgb, var(--sakura-soft) 50%, transparent), transparent),
-    radial-gradient(55% 75% at 15% 90%, color-mix(in srgb, var(--matcha) 16%, transparent), transparent),
-    var(--washi-soft);
+  background: var(--washi-soft);
   box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.phone-backdrop {
+  position: absolute;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+  filter: blur(46px) saturate(1.25);
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 .phone-shell {
   position: relative;
-  height: 86%;
-  aspect-ratio: 590 / 1280;
-  border-radius: 26px;
-  border: 7px solid var(--ink);
+  height: 93%;
+  aspect-ratio: 620 / 1280;
+  border-radius: 38px;
+  background: linear-gradient(160deg, #3a3542, #16131b 55%);
+  padding: 9px;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.28),
+    0 30px 60px -20px color-mix(in srgb, var(--ink) 65%, transparent);
+}
+
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 22px 45px -18px color-mix(in srgb, var(--ink) 50%, transparent);
   background: var(--ink);
 }
 
-/* Pétalos del barrido de transición */
-.petal-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.petal-overlay svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 20px;
-  opacity: 0;
-}
 
 /* Flechas de navegación */
 .carousel-arrow {

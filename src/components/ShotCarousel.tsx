@@ -1,104 +1,56 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Project } from '../data/projects'
-import { gsap, prefersReducedMotion } from '../motion/gsap'
+import { prefersReducedMotion } from '../motion/gsap'
 import { scrollBus } from '../motion/scrollBus'
+import { hasWebGL2 } from '../sakura/quality'
 import { useLang } from '../i18n/LangContext'
 import { ui } from '../data/ui'
+import type { SlideGL } from './slideGl'
 
 const INTERVAL = 5200
-const PETALS = 14
 
-// Carrusel de capturas con transición de barrido de pétalos:
-// una ráfaga de pétalos cruza el marco revelando la siguiente captura
-// (y sopla también sobre los pétalos WebGL de la página vía scrollBus.gust).
+// Carrusel de capturas. La transición es una disolución WebGL a través de
+// una máscara de pétalos (con fallback a crossfade sin WebGL/reduced-motion).
 export function ShotCarousel({ project }: { project: Project }) {
   const images = project.images ?? []
   const phone = project.frame === 'phone'
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
+  const [glReady, setGlReady] = useState(false)
   const indexRef = useRef(0)
-  const busy = useRef(false)
-  const shellRef = useRef<HTMLDivElement>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const glRef = useRef<SlideGL | null>(null)
   const touchX = useRef<number | null>(null)
   const { t } = useLang()
 
   indexRef.current = index
 
-  // Limpia los estilos inline de la transición justo tras el cambio de slide
-  useLayoutEffect(() => {
-    if (!shellRef.current) return
-    gsap.set(shellRef.current.querySelectorAll('img'), {
-      clearProps: 'clipPath,zIndex,opacity,scale',
-    })
-    busy.current = false
-  }, [index])
+  const useGl = images.length > 1 && !prefersReducedMotion() && hasWebGL2()
 
-  const goTo = useCallback(
-    (next: number, dir: 1 | -1) => {
-      const current = indexRef.current
-      if (busy.current || next === current || images.length < 2) return
-      busy.current = true
-
-      if (prefersReducedMotion()) {
-        setIndex(next)
-        return
-      }
-
-      const shell = shellRef.current
-      const overlay = overlayRef.current
-      if (!shell || !overlay) {
-        setIndex(next)
-        return
-      }
-
-      // Ráfaga sobre los pétalos globales de la página
-      scrollBus.gust = dir * 34
-
-      const inc = shell.querySelectorAll('img')[next] as HTMLElement
-      const w = overlay.offsetWidth
-      const h = overlay.offsetHeight
-
-      // Wipe diagonal: la captura entrante se revela siguiendo a los pétalos
-      const startClip =
-        dir === 1
-          ? 'polygon(-25% 0%, -25% 0%, -45% 100%, -45% 100%)'
-          : 'polygon(145% 0%, 145% 0%, 125% 100%, 125% 100%)'
-      const endClip =
-        dir === 1
-          ? 'polygon(-25% 0%, 145% 0%, 125% 100%, -45% 100%)'
-          : 'polygon(-25% 0%, 145% 0%, 125% 100%, -45% 100%)'
-
-      gsap.set(inc, { opacity: 1, zIndex: 2, scale: 1.04, clipPath: startClip })
-
-      const petals = Array.from(overlay.children)
-      const tl = gsap.timeline({
-        onComplete: () => setIndex(next),
+  useEffect(() => {
+    if (!useGl || !canvasRef.current) return
+    let destroyed = false
+    import('./slideGl').then(({ createSlideGL }) => {
+      if (destroyed || !canvasRef.current) return
+      glRef.current = createSlideGL(canvasRef.current, images, {
+        alignTop: !phone,
+        onReady: () => setGlReady(true),
       })
-      tl.to(inc, { clipPath: endClip, scale: 1, duration: 0.95, ease: 'osaka' }, 0.06)
-      tl.fromTo(
-        petals,
-        {
-          x: dir === 1 ? -60 : w + 60,
-          y: () => Math.random() * h,
-          rotation: () => Math.random() * 360,
-          scale: () => 0.5 + Math.random() * 0.9,
-          opacity: 0.95,
-        },
-        {
-          x: dir === 1 ? w + 80 : -80,
-          y: () => `+=${Math.random() * 90 - 45}`,
-          rotation: () => `+=${120 + Math.random() * 240}`,
-          opacity: 0,
-          duration: 1.0,
-          stagger: 0.028,
-          ease: 'power1.inOut',
-        },
-        0,
-      )
-    },
-    [images.length],
-  )
+    })
+    return () => {
+      destroyed = true
+      glRef.current?.destroy()
+      glRef.current = null
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [useGl])
+
+  const goTo = useCallback((next: number, dir: 1 | -1) => {
+    if (next === indexRef.current) return
+    scrollBus.gust = dir * 30
+    glRef.current?.show(next, dir)
+    setIndex(next)
+  }, [])
 
   const step = useCallback(
     (dir: 1 | -1) => {
@@ -115,18 +67,25 @@ export function ShotCarousel({ project }: { project: Project }) {
     return () => clearInterval(id)
   }, [paused, images.length, step, index])
 
-  const slides = images.map((src, i) => (
-    <img
-      key={src}
-      src={src}
-      alt={`${project.title}, captura ${i + 1}`}
-      className={i === index ? 'active' : ''}
-      draggable={false}
-      loading={i === 0 ? 'eager' : 'lazy'}
-      width={phone ? 590 : 1600}
-      height={phone ? 1280 : 1000}
-    />
-  ))
+  const slides = (
+    <>
+      {images.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt={`${project.title}, captura ${i + 1}`}
+          className={i === index ? 'active' : ''}
+          draggable={false}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          width={phone ? 590 : 1600}
+          height={phone ? 1280 : 1000}
+        />
+      ))}
+      {useGl && (
+        <canvas ref={canvasRef} className={`gl-slides ${glReady ? 'ready' : ''}`} aria-hidden="true" />
+      )}
+    </>
+  )
 
   return (
     <div
@@ -149,24 +108,21 @@ export function ShotCarousel({ project }: { project: Project }) {
         }}
       >
         {phone ? (
-          <div className="phone-shell" ref={shellRef}>
-            {slides}
-          </div>
+          <>
+            <img
+              className="phone-backdrop"
+              src={images[index]}
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+            />
+            <div className="phone-shell">
+              <div className="phone-screen">{slides}</div>
+            </div>
+          </>
         ) : (
-          <div className="web-shell" ref={shellRef}>
-            {slides}
-          </div>
+          <div className="web-shell">{slides}</div>
         )}
-        <div className="petal-overlay" ref={overlayRef} aria-hidden="true">
-          {Array.from({ length: PETALS }, (_, i) => (
-            <svg key={i} viewBox="0 0 24 28">
-              <path
-                d="M12 27 C2 20 1 9 8 3 Q10 1.4 12 4 Q14 1.4 16 3 C23 9 22 20 12 27 Z"
-                fill={i % 3 === 0 ? 'var(--sakura-deep)' : 'var(--sakura)'}
-              />
-            </svg>
-          ))}
-        </div>
         {images.length > 1 && (
           <>
             <button className="carousel-arrow prev" aria-label={t(ui.projects.prev)} onClick={() => step(-1)}>
