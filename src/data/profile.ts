@@ -3,7 +3,7 @@ import type { L10n } from '../i18n/LangContext'
 // Todo el contenido personal vive aquí. Edita libremente.
 export const profile = {
   handle: 'luko13',
-  realName: 'Luis Bravo',
+  realName: 'Luis Santiago Chillón Serratosa',
   role: {
     es: 'Full-stack developer. SaaS, sistemas de trading y agentes de IA.',
     en: 'Full-stack developer. SaaS, trading systems & AI agents.',

@@ -5,12 +5,12 @@ const META = {
   es: {
     title: 'luko13 · Full-stack developer',
     description:
-      'Portfolio de luko13 (Luis Bravo): SaaS con clientes reales, sistemas de trading y agentes de IA. TypeScript, React, Python.',
+      'Portfolio de luko13 (Luis Chillón): SaaS con clientes reales, sistemas de trading y agentes de IA. TypeScript, React, Python.',
   },
   en: {
     title: 'luko13 · Full-stack developer',
     description:
-      'Portfolio of luko13 (Luis Bravo): SaaS with real customers, trading systems and AI agents. TypeScript, React, Python.',
+      'Portfolio of luko13 (Luis Chillón): SaaS with real customers, trading systems and AI agents. TypeScript, React, Python.',
   },
 }
 
