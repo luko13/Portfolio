@@ -127,8 +127,8 @@ export function createSheet3D(
     const ia = img.width / img.height
     const vh = 2 * Math.tan((camera.fov * Math.PI) / 360) * camera.position.z
     const vw = vh * camera.aspect
-    const maxH = vh * 0.62
-    const maxW = vw * 0.74
+    const maxH = vh * 0.74
+    const maxW = vw * 0.86
     const h = Math.min(maxH, maxW / ia)
     return { w: h * ia, h }
   }
