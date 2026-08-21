@@ -178,5 +178,6 @@ export const projects: Project[] = [
       en: 'Under the hood: every decision NOT to trade is logged with its reason (drawdown, hourly cap, flipped favorite) in a 6,545-event journal that even records the per-bet Chainlink-Binance gap. Auditable systems, not black boxes.',
     },
     stack: ['Python', 'FastAPI', 'CCXT', 'WebSockets', 'Polygon', 'Solana'],
+    images: ['/screenshots/quantlab.png'],
   },
 ]
