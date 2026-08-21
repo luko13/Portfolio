@@ -115,7 +115,7 @@ export function createPhone3D(
   screen.position.z = PHONE_D / 2 + 0.002
   phone.add(screen)
 
-  const BASE_SCALE = 0.84 // margen para que el tilt y el giro nunca toquen el borde del canvas
+  const BASE_SCALE = 0.95 // lienzo cuadrado: aprovecha el alto sin tocar los bordes al girar
   phone.scale.setScalar(BASE_SCALE)
 
   // ---- Explosión de pétalos (compartida) ----

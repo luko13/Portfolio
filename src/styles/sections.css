@@ -535,10 +535,17 @@ main,
   opacity: 1;
 }
 
-/* Fallback 2D del teléfono (sin WebGL / reduced-motion) */
+/* El carrusel de móvil necesita alto, no ancho: lienzo vertical */
 .is-phone .carousel-frame {
   display: grid;
   place-items: center;
+  aspect-ratio: 1 / 1; /* más alto que 16/10 sin desbordar el viewport */
+}
+
+@media (max-width: 900px) {
+  .is-phone .carousel-frame {
+    aspect-ratio: 4 / 5;
+  }
 }
 
 .phone-shell {
