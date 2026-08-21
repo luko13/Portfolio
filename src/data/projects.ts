@@ -15,28 +15,9 @@ export interface Project {
   repo?: string
 }
 
+// featured: true = productos terminados y en producción (casos de estudio grandes).
+// El resto aparece en el índice de side projects.
 export const projects: Project[] = [
-  {
-    id: 'oms',
-    featured: true,
-    title: 'OMS · Jornal',
-    year: '2025',
-    kind: { es: 'SaaS B2B', en: 'B2B SaaS' },
-    tagline: {
-      es: 'Control horario y gestión de jornada para pymes españolas.',
-      en: 'Time tracking and workday management for Spanish SMBs.',
-    },
-    context: {
-      es: 'Registro de jornada conforme al BOE: fichajes, vacaciones, correcciones con auditoría y backups con valor legal.',
-      en: 'Legally compliant workday registry: clock-ins, leave, audited corrections and legally sound backups.',
-    },
-    result: {
-      es: 'En producción con clientes reales. Más de 500 commits, web y app móvil, auditorías de seguridad y RLS verificada por scripts.',
-      en: 'In production with real customers. 500+ commits, web and mobile app, security audits and script-verified RLS.',
-    },
-    stack: ['Next.js 15', 'TypeScript', 'Supabase', 'PostgreSQL + RLS', 'Expo', 'Vitest'],
-    image: '/screenshots/oms.webp',
-  },
   {
     id: 'mmento',
     featured: true,
@@ -60,6 +41,28 @@ export const projects: Project[] = [
     image: '/screenshots/mmento.webp',
   },
   {
+    id: 'jornal',
+    featured: true,
+    title: 'Jornal',
+    year: '2025',
+    kind: { es: 'SaaS B2B', en: 'B2B SaaS' },
+    tagline: {
+      es: 'Control horario y gestión de jornada para pymes españolas.',
+      en: 'Time tracking and workday management for Spanish SMBs.',
+    },
+    context: {
+      es: 'Registro de jornada conforme al BOE: fichajes, vacaciones, correcciones con auditoría y backups con valor legal.',
+      en: 'Legally compliant workday registry: clock-ins, leave, audited corrections and legally sound backups.',
+    },
+    result: {
+      es: 'En producción en jornal.work con clientes reales. Más de 500 commits, web y app móvil, auditorías de seguridad y RLS verificada por scripts.',
+      en: 'In production at jornal.work with real customers. 500+ commits, web and mobile app, security audits and script-verified RLS.',
+    },
+    stack: ['Next.js 15', 'TypeScript', 'Supabase', 'PostgreSQL + RLS', 'Expo', 'Vitest'],
+    url: 'https://jornal.work',
+    image: '/screenshots/jornal.webp',
+  },
+  {
     id: 'mmento-analytics',
     featured: true,
     title: 'mmento Analytics',
@@ -74,14 +77,14 @@ export const projects: Project[] = [
       en: 'DAU/WAU/MAU, cohort retention, search CTR, zero-results and error monitoring in a single panel.',
     },
     result: {
-      es: 'Deployado en analytics.mmento.app; decisiones de producto de mmento se toman sobre estos datos.',
+      es: 'Deployado en analytics.mmento.app; las decisiones de producto de mmento se toman sobre estos datos.',
       en: 'Deployed at analytics.mmento.app; mmento product decisions run on this data.',
     },
     stack: ['Next.js 16', 'TanStack Query', 'Recharts', 'Supabase', 'Upstash Redis'],
   },
   {
     id: 'agent-alpha',
-    featured: true,
+    featured: false,
     title: 'Agent Alpha',
     year: '2026',
     kind: { es: 'Agentes IA', en: 'AI agents' },
@@ -101,7 +104,7 @@ export const projects: Project[] = [
   },
   {
     id: 'sla-refunds',
-    featured: true,
+    featured: false,
     title: 'SLA Refunds',
     year: '2025',
     kind: { es: 'Microservicios', en: 'Microservices' },
@@ -121,7 +124,7 @@ export const projects: Project[] = [
   },
   {
     id: 'wa-crm',
-    featured: true,
+    featured: false,
     title: 'WhatsApp CRM',
     year: '2026',
     kind: { es: 'SaaS B2B', en: 'B2B SaaS' },
@@ -144,18 +147,18 @@ export const projects: Project[] = [
     featured: false,
     title: 'Quant Lab',
     year: '2025-2026',
-    kind: { es: 'Trading cuantitativo', en: 'Quant trading' },
+    kind: { es: 'Side project · Trading', en: 'Side project · Trading' },
     tagline: {
-      es: 'Bots operando con dinero real en Polymarket y Solana.',
-      en: 'Bots trading real money on Polymarket and Solana.',
+      es: 'Experimentos de trading algorítmico en mercados de predicción.',
+      en: 'Algorithmic trading experiments on prediction markets.',
     },
     context: {
-      es: 'Estrategias sobre mercados de predicción y on-chain: BTC a 5 minutos, edge meteorológico contra Open-Meteo, radar de wallets y copy-trading. Kelly fraccionario, backtesting y kill switches.',
-      en: 'Strategies on prediction markets and on-chain: 5-minute BTC, weather edge vs Open-Meteo, wallet radar and copy-trading. Fractional Kelly, backtesting and kill switches.',
+      es: 'Colección de bots y herramientas: BTC a 5 minutos, edge meteorológico contra Open-Meteo, radar de wallets y copy-trading. Kelly fraccionario, backtesting y kill switches.',
+      en: 'A collection of bots and tools: 5-minute BTC, weather edge vs Open-Meteo, wallet radar and copy-trading. Fractional Kelly, backtesting and kill switches.',
     },
     result: {
-      es: 'Varios bots en real con journal de operaciones, calibración con datos propios y gestión de riesgo cifrada (Fernet).',
-      en: 'Several bots live with trade journals, calibration on first-party data and encrypted risk management (Fernet).',
+      es: 'Varios bots operando en real con journal de operaciones, calibración con datos propios y credenciales cifradas.',
+      en: 'Several bots live with trade journals, calibration on first-party data and encrypted credentials.',
     },
     stack: ['Python', 'FastAPI', 'CCXT', 'WebSockets', 'Polygon', 'Solana'],
   },
