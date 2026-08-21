@@ -179,24 +179,4 @@ export const projects: Project[] = [
     },
     stack: ['Python', 'FastAPI', 'CCXT', 'WebSockets', 'Polygon', 'Solana'],
   },
-  {
-    id: 'jlch-web',
-    featured: false,
-    title: 'JLCH Abogados',
-    year: '2026',
-    kind: { es: 'Consultoría', en: 'Consulting' },
-    tagline: {
-      es: 'Auditoría de rediseño y SEO/GEO para un despacho de abogados.',
-      en: 'Redesign and SEO/GEO audit for a law firm.',
-    },
-    context: {
-      es: 'Consultoría en 11 documentos, medida navegando el sitio real: UX, SEO técnico, optimización para buscadores de IA (GEO/AEO), arquitectura y cumplimiento legal.',
-      en: 'An 11-document consulting engagement, measured on the live site: UX, technical SEO, AI-search optimization (GEO/AEO), architecture and legal compliance.',
-    },
-    result: {
-      es: 'Detrás: el hallazgo clave fue un sitio con 100/100 en SEO de Lighthouse que aun así era invisible para las IAs (51/100 en agentic browsing); el plan cierra esa brecha con bloques de respuesta directa y 14 tipos de schema.org listos para pegar.',
-      en: 'Under the hood: the key finding was a site scoring 100/100 on Lighthouse SEO while remaining invisible to AI search (51/100 agentic browsing); the plan closes that gap with direct-answer blocks and 14 ready-to-paste schema.org types.',
-    },
-    stack: ['SEO técnico', 'GEO/AEO', 'Lighthouse', 'JSON-LD', 'UX'],
-  },
 ]
