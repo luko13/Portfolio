@@ -14,6 +14,7 @@ import {
   Vector2,
   WebGLRenderer,
 } from 'three'
+import { NoColorSpace, SRGBColorSpace } from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { gsap, prefersReducedMotion } from '../motion/gsap'
 import { slideFrag, makePetalMask, loadSlideTextures } from './slideGl'
@@ -84,6 +85,7 @@ export function createPhone3D(
   phone.add(body)
 
   const hankoTex = makeHankoTexture()
+  hankoTex.colorSpace = SRGBColorSpace // material con luces: sí necesita decodificación
   const hankoMat = new MeshStandardMaterial({ map: hankoTex, roughness: 0.6, metalness: 0.1 })
   const hanko = new Mesh(new PlaneGeometry(0.16, 0.16), hankoMat)
   hanko.position.set(0, 0.32, -PHONE_D / 2 - 0.002)
@@ -102,7 +104,7 @@ export function createPhone3D(
     uContain: { value: 0 },
     uCorner: { value: 0.075 },
     uAspect: { value: (PHONE_H - 0.045) / (PHONE_W - 0.045) },
-    uEdge: { value: new Color('#e8a7b7') },
+    uEdge: { value: new Color().setRGB(232 / 255, 167 / 255, 183 / 255, NoColorSpace) },
   }
   const screenMat = new ShaderMaterial({
     vertexShader: /* glsl */ `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,

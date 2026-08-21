@@ -1,4 +1,4 @@
-import { CanvasTexture, RepeatWrapping, SRGBColorSpace, Texture, TextureLoader, Vector2 } from 'three'
+import { CanvasTexture, RepeatWrapping, Texture, TextureLoader, Vector2 } from 'three'
 
 // Disolución entre capturas a través de una máscara de pétalos de sakura,
 // con barrido direccional, zoom sutil y borde teñido de rosa.
@@ -146,7 +146,8 @@ export function loadSlideTextures(
         tex.dispose()
         return
       }
-      tex.colorSpace = SRGBColorSpace
+      // Sin marcar sRGB: los shaders custom no re-codifican la salida,
+      // así que el passthrough mantiene el brillo original de la captura
       textures[i] = tex
       if (i === 0) onFirst(tex)
     })
