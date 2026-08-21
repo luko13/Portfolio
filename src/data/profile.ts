@@ -21,6 +21,6 @@ export const profile = {
   timezone: 'Europe/Madrid',
   socials: [
     { label: 'GitHub', url: 'https://github.com/luko13' },
-    // Añade LinkedIn, X, etc. aquí
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/luis-chill%C3%B3n-serratosa-00735486/' },
   ],
 }
