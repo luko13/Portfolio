@@ -1,32 +1,27 @@
-# React + TypeScript + Vite
+# luko13 · Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Portfolio personal single-page con estética japonesa de hanami: pétalos de sakura en WebGL sobre papel washi, bilingüe ES/EN y sin backend.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19 + Vite + TypeScript**
+- **GSAP** (ScrollTrigger, SplitText, CustomEase): un único sistema de easing en todo el sitio
+- **Lenis**: smooth scroll sincronizado con ScrollTrigger
+- **Three.js**: pétalos con `InstancedBufferGeometry` y movimiento 100% en GPU (4 uniforms por frame), cargado con `import()` dinámico en chunk aparte
+- **i18n propio** (~40 líneas): tipo `L10n = { es, en }` con el contenido de ambos idiomas junto en `src/data/`
 
-## React Compiler
+## Detalles
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Preloader con sello hanko y contador ligado a la carga real (fuentes + chunk 3D), solo la primera visita por sesión
+- Los pétalos reaccionan al scroll (viento por velocidad de Lenis) y al cursor (repulsión en el vertex shader), y amainan al llegar al footer
+- Degradación por niveles: menos instancias y sin cursor en móvil, pétalos estáticos con `prefers-reduced-motion`, gradiente sin WebGL2
+- Todo el contenido (proyectos, bio, skills, strings de UI) vive en `src/data/`, editable sin tocar componentes
 
-## Expanding the Oxlint configuration
+## Desarrollo
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+`npm run build` genera el estático en `dist/` (deploy pensado para Vercel).
