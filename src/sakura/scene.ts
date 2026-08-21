@@ -183,6 +183,7 @@ export function createSakuraScene(canvas: HTMLCanvasElement): SakuraScene {
       mat.dispose()
       uniforms.uTex.value.dispose()
       renderer.dispose()
+      renderer.forceContextLoss()
     },
   }
 }
