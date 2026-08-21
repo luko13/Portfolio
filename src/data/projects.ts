@@ -11,6 +11,7 @@ export interface Project {
   result: L10n
   stack: string[]
   images?: string[] // slides del carrusel (/screenshots); sin ellas, layout editorial sin imagen
+  frame?: 'phone' // capturas verticales de móvil: se muestran dentro de un teléfono
   url?: string
   repo?: string
 }
@@ -39,10 +40,14 @@ export const projects: Project[] = [
     stack: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Cloudflare', 'Sentry'],
     url: 'https://mmentoapp.com',
     images: [
-      '/screenshots/mmento.webp',
-      '/screenshots/mmento-2.webp',
-      '/screenshots/mmento-3.webp',
+      '/screenshots/mmentomovil1.jpg',
+      '/screenshots/mmentomovil2.jpg',
+      '/screenshots/mmentomovil3.jpg',
+      '/screenshots/mmentomovil4.jpg',
+      '/screenshots/mmentomovil5.jpg',
+      '/screenshots/mmentomovil6.jpg',
     ],
+    frame: 'phone',
   },
   {
     id: 'jornal',
@@ -66,9 +71,11 @@ export const projects: Project[] = [
     url: 'https://jornal.work',
     images: [
       '/screenshots/jornal.webp',
-      '/screenshots/jornal-2.webp',
-      '/screenshots/jornal-3.webp',
-      '/screenshots/jornal-4.webp',
+      '/screenshots/Jornal1.png',
+      '/screenshots/Jornal2.png',
+      '/screenshots/Jornal3.png',
+      '/screenshots/Jornal4.png',
+      '/screenshots/Jornal5.png',
     ],
   },
   {
@@ -90,6 +97,7 @@ export const projects: Project[] = [
       en: 'Deployed at analytics.mmento.app; mmento product decisions run on this data.',
     },
     stack: ['Next.js 16', 'TanStack Query', 'Recharts', 'Supabase', 'Upstash Redis'],
+    images: ['/screenshots/mmentoadmin1.png'],
   },
   {
     id: 'agent-alpha',

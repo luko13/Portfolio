@@ -152,8 +152,10 @@ export function createSakuraScene(canvas: HTMLCanvasElement): SakuraScene {
     const dt = now - last
     last = now
     uniforms.uTime.value = now / 1000
-    // Lerp del viento de scroll y de la calma del footer
-    uniforms.uScroll.value += (scrollBus.velocity - uniforms.uScroll.value) * 0.06
+    // Lerp del viento de scroll (+ ráfagas del carrusel) y de la calma del footer
+    scrollBus.gust *= 0.94
+    uniforms.uScroll.value +=
+      (scrollBus.velocity + scrollBus.gust - uniforms.uScroll.value) * 0.06
     uniforms.uCalm.value += (scrollBus.calm - uniforms.uCalm.value) * 0.04
 
     // ponytail: degradación de un solo escalón; LOD progresivo si algún dispositivo lo pide

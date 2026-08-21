@@ -20,6 +20,8 @@ export const ui = {
   projects: {
     visit: { es: 'Ver proyecto', en: 'View project' } as L10n,
     inProduction: { es: 'En producción', en: 'In production' } as L10n,
+    prev: { es: 'Captura anterior', en: 'Previous screenshot' } as L10n,
+    next: { es: 'Captura siguiente', en: 'Next screenshot' } as L10n,
   },
   footer: {
     cta: { es: 'Hablemos', en: "Let's talk" } as L10n,
