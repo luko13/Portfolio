@@ -9,6 +9,10 @@ export interface Project {
   tagline: L10n
   context: L10n
   result: L10n
+  problem?: L10n // qué problema resuelve
+  ownership?: L10n // cuál fue mi responsabilidad
+  decisions?: L10n[] // decisiones técnicas destacadas
+  metric?: L10n // dato de tracción; se muestra solo si existe
   stack: string[]
   images?: string[] // slides del carrusel (/screenshots); sin ellas, layout editorial sin imagen
   frame?: 'phone' // capturas verticales de móvil: se muestran dentro de un teléfono
@@ -37,6 +41,28 @@ export const projects: Project[] = [
       es: 'Detrás: arquitectura offline-first con cola de sincronización idempotente, búsqueda vectorial con pgvector, vídeo con subidas resumibles a Cloudflare Stream y compras in-app. Publicada en App Store y Google Play.',
       en: 'Under the hood: offline-first architecture with an idempotent sync queue, pgvector semantic search, resumable video uploads to Cloudflare Stream and in-app purchases. Live on the App Store and Google Play.',
     },
+    problem: {
+      es: 'Un mago guarda su repertorio en libretas, vídeos sueltos y capturas: nada de eso se busca ni se recupera cuando lo necesita sobre el escenario.',
+      en: 'Magicians keep their repertoire in notebooks, loose videos and screenshots: none of it is searchable when they need it on stage.',
+    },
+    ownership: {
+      es: 'Cofundador. Todo el código: app React Native, backend, base de datos, publicación en tiendas y el panel de analítica. La UI/UX es en su mayor parte de mi socio.',
+      en: 'Co-founder. All the code: React Native app, backend, database, store releases and the analytics panel. UI/UX is mostly my co-founder’s work.',
+    },
+    decisions: [
+      {
+        es: 'Offline-first con cola de sincronización idempotente: escribir sin cobertura no puede perder ni duplicar datos.',
+        en: 'Offline-first with an idempotent sync queue: writing without signal must never lose or duplicate data.',
+      },
+      {
+        es: 'Búsqueda híbrida con pgvector sobre 20.000 productos: semántica para describir un efecto, léxica para buscarlo por nombre.',
+        en: 'Hybrid pgvector search over 20,000 products: semantic to describe an effect, lexical to find it by name.',
+      },
+      {
+        es: 'El cupo de vídeo se firma en el servidor y lo hace cumplir Cloudflare, porque el minuto de vídeo cuesta dinero real.',
+        en: 'The video quota is signed server-side and enforced by Cloudflare, because a minute of video costs real money.',
+      },
+    ],
     stack: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'Cloudflare', 'Sentry'],
     url: 'https://mmentoapp.com',
     images: [
@@ -67,6 +93,28 @@ export const projects: Project[] = [
       es: 'Detrás: multi-tenant con aislamiento RLS probado por scripts que intentan romperlo, inmutabilidad y auditoría append-only a nivel de base de datos, backups verificados restaurándolos y 112 migraciones aditivas tras feature flags. En producción con clientes reales.',
       en: 'Under the hood: multi-tenant RLS isolation proven by scripts that try to break it, database-level immutability with append-only auditing, backups verified by restoring them, and 112 additive migrations behind feature flags. In production with real customers.',
     },
+    problem: {
+      es: 'El registro horario es obligatorio en España y la mayoría de pymes lo resuelve con hojas de cálculo que no aguantan una inspección.',
+      en: 'Spain mandates time-tracking, and most SMBs solve it with spreadsheets that would not survive a labour inspection.',
+    },
+    ownership: {
+      es: 'Fundador y CTO. Producto, arquitectura y todo el código: web, app móvil, base de datos y la operación completa (CI, backups, correo, cumplimiento legal).',
+      en: 'Founder and CTO. Product, architecture and all the code: web, mobile app, database and the entire operation (CI, backups, email, legal compliance).',
+    },
+    decisions: [
+      {
+        es: 'Las garantías viven en la base de datos, no en el código: triggers que impiden borrar un fichaje y auditoría append-only que nadie puede reescribir.',
+        en: 'Guarantees live in the database, not the code: triggers that forbid deleting an entry and append-only auditing nobody can rewrite.',
+      },
+      {
+        es: '40+ scripts levantan un PostgreSQL real en proceso (PGlite/WASM) y ejecutan las migraciones de verdad en ~45 s, sin Docker ni mocks.',
+        en: '40+ scripts spin up a real in-process PostgreSQL (PGlite/WASM) and run the actual migrations in ~45s, with no Docker and no mocks.',
+      },
+      {
+        es: 'Un script se autentica como empleado de una empresa e intenta leer y escribir en otra: si el aislamiento se rompe, falla el CI.',
+        en: 'A script authenticates as one company’s employee and tries to read and write into another: if isolation breaks, CI fails.',
+      },
+    ],
     stack: ['Next.js 15', 'TypeScript', 'Supabase', 'PostgreSQL + RLS', 'Expo', 'Vitest'],
     url: 'https://jornal.work',
     images: [
@@ -96,6 +144,24 @@ export const projects: Project[] = [
       es: 'Detrás: la analítica vive en 34 funciones de Postgres (6.400 líneas de SQL), con cohortes calculadas en vivo para poder excluir cuentas de test de numerador y denominador, rate limiting con Redis y auditoría de cada mutación.',
       en: 'Under the hood: the analytics live in 34 Postgres functions (6,400 lines of SQL), with cohorts computed live so test accounts can be excluded from numerator and denominator alike, Redis rate limiting and an audit log on every mutation.',
     },
+    problem: {
+      es: 'Sin datos propios, las decisiones de producto de mmento se tomaban por intuición: no sabíamos qué se buscaba, qué no se encontraba ni quién volvía.',
+      en: 'Without first-party data, mmento product decisions were guesswork: we did not know what users searched, what they failed to find, or who came back.',
+    },
+    ownership: {
+      es: 'Todo el código y el modelo de datos analítico. La UI/UX es en su mayor parte de mi socio.',
+      en: 'All the code and the analytics data model. UI/UX is mostly my co-founder’s work.',
+    },
+    decisions: [
+      {
+        es: 'La analítica se calcula en Postgres, no en el cliente: 34 funciones y ~6.400 líneas de SQL que el panel solo consume.',
+        en: 'Analytics is computed in Postgres, not on the client: 34 functions and ~6,400 lines of SQL the panel merely consumes.',
+      },
+      {
+        es: 'Desmaterialicé las vistas de cohortes: un agregado precalculado no permite excluir cuentas de test y mezclaba cifras filtradas con sin filtrar.',
+        en: 'I de-materialized the cohort views: a precomputed aggregate cannot exclude test accounts and was mixing filtered with unfiltered numbers.',
+      },
+    ],
     stack: ['Next.js 16', 'TanStack Query', 'Recharts', 'Supabase', 'Upstash Redis'],
     images: ['/screenshots/mmentoadmin1.png'],
   },

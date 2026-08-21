@@ -25,7 +25,7 @@ export function Nav() {
       </a>
       <nav className="nav-links">
         <a href="#about">{t(ui.nav.about)}</a>
-        <a href="#skills">{t(ui.nav.skills)}</a>
+        <a href="#process">{t(ui.process.title)}</a>
         <a href="#projects">{t(ui.nav.projects)}</a>
         <a href="#contact">{t(ui.nav.contact)}</a>
       </nav>

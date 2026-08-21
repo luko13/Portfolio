@@ -98,6 +98,18 @@
 .nav-links a {
   position: relative;
   padding-block: 0.25rem;
+  white-space: nowrap;
+}
+
+/* En móvil la nav debe caber en una línea: se quedan los destinos clave */
+@media (max-width: 720px) {
+  .nav-links a[href="#about"],
+  .nav-links a[href="#process"] {
+    display: none;
+  }
+  .nav-links {
+    gap: 1.25rem;
+  }
 }
 
 .nav-links a::after {
@@ -180,12 +192,6 @@ main,
   color: var(--ink);
 }
 
-.hero-role {
-  margin-top: 1.5rem;
-  max-width: 34rem;
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
-  color: var(--ink-dim);
-}
 
 .hero-kanji {
   position: absolute;
@@ -837,5 +843,259 @@ main,
   gap: 1rem;
   margin-top: 2.5rem;
   font-size: 0.8125rem;
+  color: var(--ink-dim);
+}
+
+/* ============ BOTONES ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: background-color 0.35s var(--ease-osaka), color 0.35s var(--ease-osaka),
+    border-color 0.35s var(--ease-osaka), transform 0.2s var(--ease-osaka);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--hanko);
+  color: var(--washi);
+  box-shadow: 0 12px 30px -14px color-mix(in srgb, var(--hanko) 70%, transparent);
+}
+
+.btn-primary:hover {
+  background: color-mix(in srgb, var(--hanko) 88%, var(--ink));
+}
+
+.btn-ghost {
+  border-color: color-mix(in srgb, var(--ink) 25%, transparent);
+  color: var(--ink);
+}
+
+.btn-ghost:hover {
+  border-color: var(--sakura-deep);
+  color: var(--sakura-deep);
+}
+
+.btn-quiet {
+  color: var(--ink-dim);
+  padding-inline: 0.5rem;
+}
+
+.btn-quiet:hover {
+  color: var(--sakura-deep);
+}
+
+/* ============ HERO (propuesta de valor + CTAs) ============ */
+.hero-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 1rem;
+}
+
+.hero-headline {
+  margin-top: 1.25rem;
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.hero-role {
+  margin-top: 0.9rem;
+  max-width: 46ch;
+  font-size: clamp(0.95rem, 1.4vw, 1.0625rem);
+  color: var(--ink-dim);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+/* ============ CÓMO TRABAJO ============ */
+.process-lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  max-width: 32ch;
+  margin-bottom: clamp(2.5rem, 6vh, 4rem);
+}
+
+.process-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  counter-reset: step;
+}
+
+.process-step {
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+}
+
+.process-num {
+  display: block;
+  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
+  font-size: 1.5rem;
+  color: var(--sakura-deep);
+  margin-bottom: 0.6rem;
+}
+
+.process-step h3 {
+  font-size: 1.0625rem;
+  margin-bottom: 0.5rem;
+}
+
+.process-step p {
+  font-size: 0.875rem;
+  color: var(--ink-dim);
+}
+
+@media (max-width: 1000px) {
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .process-steps {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ============ CASOS DE ESTUDIO ============ */
+.case-block {
+  margin-top: 1.4rem;
+}
+
+.case-block h4 {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sakura-deep);
+  margin-bottom: 0.4rem;
+}
+
+.case-block p {
+  font-size: 0.9375rem;
+  color: var(--ink-dim);
+  max-width: 52ch;
+}
+
+.case-decisions {
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+  max-width: 52ch;
+}
+
+.case-decisions li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.9375rem;
+  color: var(--ink-dim);
+}
+
+.case-decisions li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sakura);
+}
+
+.fp-metric {
+  margin-top: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: var(--ink);
+}
+
+/* ============ TRAYECTORIA Y FORMACIÓN ============ */
+.track {
+  margin-top: clamp(2.5rem, 6vh, 3.5rem);
+}
+
+.track-title {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sakura-deep);
+  margin-bottom: 1rem;
+}
+
+.track-list {
+  list-style: none;
+  display: grid;
+  gap: 1.4rem;
+}
+
+.track-list > li {
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+}
+
+.track-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.track-row strong {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.track-period {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+
+.track-role {
+  font-size: 0.9375rem;
+  color: var(--ink);
+}
+
+.track-note {
+  font-size: 0.875rem;
+  color: var(--ink-dim);
+  max-width: 56ch;
+}
+
+/* ============ FOOTER ============ */
+.footer-lead {
+  margin-top: 1.25rem;
+  max-width: 42ch;
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
   color: var(--ink-dim);
 }

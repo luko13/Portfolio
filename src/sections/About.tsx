@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { gsap, prefersReducedMotion } from '../motion/gsap'
 import { useReveal } from '../motion/useReveal'
 import { useLang } from '../i18n/LangContext'
-import { profile } from '../data/profile'
+import { profile, experience, education } from '../data/profile'
 import { ui } from '../data/ui'
 import { Hanko } from '../components/Hanko'
 
@@ -69,6 +69,37 @@ export function About() {
           </div>
           <p className="about-p will-reveal">{highlight(t(profile.bio1), kw)}</p>
           <p className="about-p will-reveal">{t(profile.bio2)}</p>
+
+          <div className="track will-reveal">
+            <h3 className="track-title">{t(ui.about.experience)}</h3>
+            <ul className="track-list">
+              {experience.map((r) => (
+                <li key={r.org}>
+                  <div className="track-row">
+                    <strong>{r.org}</strong>
+                    <span className="track-period">{r.period}</span>
+                  </div>
+                  <p className="track-role">{t(r.title)}</p>
+                  <p className="track-note">{t(r.note)}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="track will-reveal">
+            <h3 className="track-title">{t(ui.about.education)}</h3>
+            <ul className="track-list">
+              {education.map((e) => (
+                <li key={e.org}>
+                  <div className="track-row">
+                    <strong>{e.org}</strong>
+                    <span className="track-period">{e.period}</span>
+                  </div>
+                  <p className="track-role">{t(e.title)}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

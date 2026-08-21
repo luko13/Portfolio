@@ -13,7 +13,7 @@ export function ProjectIndex() {
       <div className="container">
         <div className="section-head will-reveal">
           <span className="kanji-num" lang="ja">
-            四
+            五
           </span>
           <h2>{t(ui.sections.index)}</h2>
         </div>

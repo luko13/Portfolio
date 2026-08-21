@@ -11,12 +11,12 @@ export function Skills() {
   return (
     <section className="section skills" id="skills" ref={ref}>
       <span className="tategaki side-label" aria-hidden="true">
-        {t(ui.sections.skills)} · 二
+        {t(ui.sections.skills)} · 四
       </span>
       <div className="container">
         <div className="section-head will-reveal">
           <span className="kanji-num" lang="ja">
-            二
+            四
           </span>
           <h2>{t(ui.sections.skills)}</h2>
         </div>
