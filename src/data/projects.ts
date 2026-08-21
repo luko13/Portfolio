@@ -42,7 +42,6 @@ export const projects: Project[] = [
       '/screenshots/mmento.webp',
       '/screenshots/mmento-2.webp',
       '/screenshots/mmento-3.webp',
-      '/screenshots/mmento-4.webp',
     ],
   },
   {
