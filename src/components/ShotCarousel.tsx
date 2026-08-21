@@ -121,6 +121,7 @@ export function ShotCarousel({ project }: { project: Project }) {
       src={src}
       alt={`${project.title}, captura ${i + 1}`}
       className={i === index ? 'active' : ''}
+      draggable={false}
       loading={i === 0 ? 'eager' : 'lazy'}
       width={phone ? 590 : 1600}
       height={phone ? 1280 : 1000}
