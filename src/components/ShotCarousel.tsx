@@ -5,7 +5,7 @@ import { scrollBus } from '../motion/scrollBus'
 import { hasWebGL2 } from '../sakura/quality'
 import { useLang } from '../i18n/LangContext'
 import { ui } from '../data/ui'
-import type { SlideGL } from './slideGl'
+import type { Sheet3D } from './sheet3d'
 
 const INTERVAL = 5200
 
@@ -19,20 +19,20 @@ export function ShotCarousel({ project }: { project: Project }) {
   const [glReady, setGlReady] = useState(false)
   const indexRef = useRef(0)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const glRef = useRef<SlideGL | null>(null)
+  const glRef = useRef<Sheet3D | null>(null)
   const touchX = useRef<number | null>(null)
   const { t } = useLang()
 
   indexRef.current = index
 
-  const useGl = images.length > 1 && !prefersReducedMotion() && hasWebGL2()
+  const useGl = images.length > 0 && !prefersReducedMotion() && hasWebGL2()
 
   useEffect(() => {
     if (!useGl || !canvasRef.current) return
     let destroyed = false
     const load = phone
       ? import('./phone3d').then((m) => m.createPhone3D)
-      : import('./slideGl').then((m) => m.createSlideGL)
+      : import('./sheet3d').then((m) => m.createSheet3D)
     load.then((create) => {
       if (destroyed || !canvasRef.current) return
       glRef.current = create(canvasRef.current, images, {
@@ -83,9 +83,6 @@ export function ShotCarousel({ project }: { project: Project }) {
           height={phone ? 1280 : 1000}
         />
       ))}
-      {useGl && !phone && (
-        <canvas ref={canvasRef} className={`gl-slides ${glReady ? 'ready' : ''}`} aria-hidden="true" />
-      )}
     </>
   )
 
@@ -109,27 +106,16 @@ export function ShotCarousel({ project }: { project: Project }) {
           if (Math.abs(d) > 40) step(d < 0 ? 1 : -1)
         }}
       >
-        {phone ? (
-          <>
-            <img
-              className="phone-backdrop"
-              src={images[index]}
-              alt=""
-              aria-hidden="true"
-              draggable={false}
-            />
-            {useGl ? (
-              <canvas
-                ref={canvasRef}
-                className={`gl-phone ${glReady ? 'ready' : ''}`}
-                aria-label={`${project.title}: capturas en un iPhone 3D`}
-              />
-            ) : (
-              <div className="phone-shell">
-                <div className="phone-screen">{slides}</div>
-              </div>
-            )}
-          </>
+        {useGl ? (
+          <canvas
+            ref={canvasRef}
+            className={`gl-stage ${glReady ? 'ready' : ''}`}
+            aria-label={`${project.title}: capturas`}
+          />
+        ) : phone ? (
+          <div className="phone-shell">
+            <div className="phone-screen">{slides}</div>
+          </div>
         ) : (
           <div className="web-shell">{slides}</div>
         )}
