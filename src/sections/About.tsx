@@ -44,8 +44,8 @@ export function About() {
 
   const kw =
     lang === 'es'
-      ? ['SaaS multi-tenant', 'dinero real', 'agentes de IA']
-      : ['multi-tenant SaaS', 'real money', 'AI agents']
+      ? ['SaaS multi-tenant', 'clientes reales', 'apps móviles publicadas']
+      : ['multi-tenant SaaS', 'real customers', 'mobile apps live in the stores']
 
   return (
     <section className="section about" id="about" ref={ref}>

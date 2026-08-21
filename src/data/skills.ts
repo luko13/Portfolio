@@ -15,12 +15,12 @@ export const skillGroups: SkillGroup[] = [
     items: ['NestJS / Fastify', 'Python / FastAPI', 'PostgreSQL + RLS', 'Supabase', 'Redis / BullMQ', 'Docker'],
   },
   {
-    label: { es: 'Trading y quant', en: 'Trading & quant' },
-    items: ['CCXT', 'Polymarket CLOB', 'Backtesting', 'Kelly fraccionario', 'On-chain (Polygon / Solana)'],
-  },
-  {
     label: { es: 'IA e infra', en: 'AI & infra' },
     items: ['LangGraph', 'OpenAI SDK', 'Búsqueda vectorial', 'Sentry / OpenTelemetry', 'Stripe', 'CI/CD'],
+  },
+  {
+    label: { es: 'Trading y quant', en: 'Trading & quant' },
+    items: ['CCXT', 'Backtesting', 'Kelly fraccionario', 'On-chain (Polygon / Solana)', 'Gestión de riesgo'],
   },
 ]
 

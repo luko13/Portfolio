@@ -12,7 +12,7 @@ export const ui = {
     about: { es: 'Sobre mí', en: 'About me' } as L10n,
     skills: { es: 'Habilidades', en: 'Skills' } as L10n,
     projects: { es: 'Proyectos destacados', en: 'Selected work' } as L10n,
-    index: { es: 'Más proyectos', en: 'More projects' } as L10n,
+    index: { es: 'Side projects y más', en: 'Side projects & more' } as L10n,
   },
   hero: {
     intro: { es: 'Portfolio', en: 'Portfolio' } as L10n,
