@@ -30,10 +30,12 @@ export function ShotCarousel({ project }: { project: Project }) {
   useEffect(() => {
     if (!useGl || !canvasRef.current) return
     let destroyed = false
-    import('./slideGl').then(({ createSlideGL }) => {
+    const load = phone
+      ? import('./phone3d').then((m) => m.createPhone3D)
+      : import('./slideGl').then((m) => m.createSlideGL)
+    load.then((create) => {
       if (destroyed || !canvasRef.current) return
-      glRef.current = createSlideGL(canvasRef.current, images, {
-        alignTop: !phone,
+      glRef.current = create(canvasRef.current, images, {
         onReady: () => setGlReady(true),
       })
     })
@@ -81,7 +83,7 @@ export function ShotCarousel({ project }: { project: Project }) {
           height={phone ? 1280 : 1000}
         />
       ))}
-      {useGl && (
+      {useGl && !phone && (
         <canvas ref={canvasRef} className={`gl-slides ${glReady ? 'ready' : ''}`} aria-hidden="true" />
       )}
     </>
@@ -116,9 +118,17 @@ export function ShotCarousel({ project }: { project: Project }) {
               aria-hidden="true"
               draggable={false}
             />
-            <div className="phone-shell">
-              <div className="phone-screen">{slides}</div>
-            </div>
+            {useGl ? (
+              <canvas
+                ref={canvasRef}
+                className={`gl-phone ${glReady ? 'ready' : ''}`}
+                aria-label={`${project.title}: capturas en un iPhone 3D`}
+              />
+            ) : (
+              <div className="phone-shell">
+                <div className="phone-screen">{slides}</div>
+              </div>
+            )}
           </>
         ) : (
           <div className="web-shell">{slides}</div>
