@@ -776,6 +776,17 @@ main,
   font-size: clamp(1rem, 1.8vw, 1.25rem);
 }
 
+.footer-email-link {
+  border-bottom: 1.5px solid color-mix(in srgb, var(--sakura-deep) 55%, transparent);
+  padding-bottom: 0.1rem;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.footer-email-link:hover {
+  color: var(--sakura-deep);
+  border-color: var(--sakura-deep);
+}
+
 .copy-btn {
   font-size: 0.6875rem;
   font-weight: 500;

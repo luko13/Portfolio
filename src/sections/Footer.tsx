@@ -61,7 +61,9 @@ export function Footer() {
           {t(ui.footer.cta)}
         </a>
         <div className="footer-email will-reveal">
-          <span>{profile.email}</span>
+          <a className="footer-email-link" href={`mailto:${profile.email}`}>
+            {profile.email}
+          </a>
           <button onClick={copyEmail} className="copy-btn" data-magnetic>
             {copied ? `✓ ${t(ui.footer.copied)}` : t(ui.footer.copyEmail)}
           </button>
