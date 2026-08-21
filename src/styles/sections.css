@@ -479,6 +479,10 @@ main,
 /* ============ CARRUSEL DE CAPTURAS ============ */
 .carousel-frame {
   position: relative;
+}
+
+.web-shell {
+  position: relative;
   aspect-ratio: 16 / 10;
   border-radius: 10px;
   overflow: hidden;
@@ -487,7 +491,8 @@ main,
   background: var(--washi-soft);
 }
 
-.carousel-frame img {
+.web-shell img,
+.phone-shell img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -495,13 +500,95 @@ main,
   object-fit: cover;
   object-position: top;
   opacity: 0;
-  scale: 1.04;
-  transition: opacity 0.9s var(--ease-osaka), scale 6s linear;
 }
 
-.carousel-frame img.active {
+.web-shell img.active,
+.phone-shell img.active {
   opacity: 1;
-  scale: 1;
+}
+
+/* Capturas de móvil: teléfono sobre panel washi */
+.is-phone .carousel-frame {
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  background:
+    radial-gradient(70% 90% at 75% 15%, color-mix(in srgb, var(--sakura-soft) 50%, transparent), transparent),
+    radial-gradient(55% 75% at 15% 90%, color-mix(in srgb, var(--matcha) 16%, transparent), transparent),
+    var(--washi-soft);
+  box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.phone-shell {
+  position: relative;
+  height: 86%;
+  aspect-ratio: 590 / 1280;
+  border-radius: 26px;
+  border: 7px solid var(--ink);
+  overflow: hidden;
+  box-shadow: 0 22px 45px -18px color-mix(in srgb, var(--ink) 50%, transparent);
+  background: var(--ink);
+}
+
+/* Pétalos del barrido de transición */
+.petal-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.petal-overlay svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  opacity: 0;
+}
+
+/* Flechas de navegación */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--washi) 85%, transparent);
+  backdrop-filter: blur(6px);
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-osaka), background 0.3s;
+}
+
+.carousel-arrow.prev {
+  left: 0.9rem;
+}
+
+.carousel-arrow.next {
+  right: 0.9rem;
+}
+
+.carousel:hover .carousel-arrow,
+.carousel-arrow:focus-visible {
+  opacity: 1;
+}
+
+.carousel-arrow:hover {
+  background: var(--washi);
+  color: var(--sakura-deep);
+}
+
+@media (hover: none) {
+  .carousel-arrow {
+    opacity: 1;
+  }
 }
 
 .carousel-dots {
