@@ -10,7 +10,7 @@ import {
 
 // Ráfaga 3D de pétalos instanciados, compartida por el iPhone y las láminas web.
 
-function makePetalSprite(): CanvasTexture {
+export function makePetalSprite(): CanvasTexture {
   const s = 64
   const c = document.createElement('canvas')
   c.width = c.height = s
