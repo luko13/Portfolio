@@ -70,6 +70,31 @@ export function FeaturedProjects() {
                 <h3 className="will-reveal">{p.title}</h3>
                 <p className="fp-tagline will-reveal">{t(p.tagline)}</p>
                 <p className="fp-context will-reveal">{t(p.context)}</p>
+
+                {p.problem && (
+                  <div className="case-block will-reveal">
+                    <h4>{t(ui.caseStudy.problem)}</h4>
+                    <p>{t(p.problem)}</p>
+                  </div>
+                )}
+                {p.ownership && (
+                  <div className="case-block will-reveal">
+                    <h4>{t(ui.caseStudy.role)}</h4>
+                    <p>{t(p.ownership)}</p>
+                  </div>
+                )}
+                {p.decisions && (
+                  <div className="case-block will-reveal">
+                    <h4>{t(ui.caseStudy.decisions)}</h4>
+                    <ul className="case-decisions">
+                      {p.decisions.map((d) => (
+                        <li key={d.en}>{t(d)}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {p.metric && <p className="fp-metric will-reveal">{t(p.metric)}</p>}
+
                 <p className="fp-result will-reveal">{t(p.result)}</p>
                 <ul className="fp-stack will-reveal">
                   {p.stack.map((s) => (

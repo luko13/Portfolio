@@ -60,6 +60,7 @@ export function Footer() {
         <a className="footer-cta will-reveal" href={`mailto:${profile.email}`} data-magnetic>
           {t(ui.footer.cta)}
         </a>
+        <p className="footer-lead will-reveal">{t(ui.footer.lead)}</p>
         <div className="footer-email will-reveal">
           <a className="footer-email-link" href={`mailto:${profile.email}`}>
             {profile.email}
@@ -76,6 +77,9 @@ export function Footer() {
                 {s.label} ↗
               </a>
             ))}
+            <a href={t(profile.cv)} download>
+              {t(ui.hero.cv)} ↓
+            </a>
           </div>
           <p className="footer-place">
             {t(profile.location)} · {time}

@@ -3,6 +3,7 @@ import { gsap, SplitText, prefersReducedMotion } from '../motion/gsap'
 import { introDone } from '../motion/introGate'
 import { useLang } from '../i18n/LangContext'
 import { profile } from '../data/profile'
+import { ui } from '../data/ui'
 
 export function Hero() {
   const { lang, t } = useLang()
@@ -23,12 +24,12 @@ export function Hero() {
         stagger: 0.055,
         delay: 0.15,
       })
-      gsap.from('.hero-role, .hero-scrollline', {
+      gsap.from('.hero-headline, .hero-role, .hero-actions, .hero-scrollline', {
         opacity: 0,
         y: 24,
         duration: 0.8,
-        delay: 0.9,
-        stagger: 0.12,
+        delay: 0.85,
+        stagger: 0.1,
       })
       gsap.from('.hero-kanji', { opacity: 0, duration: 1.2, delay: 1.1 })
 
@@ -56,10 +57,23 @@ export function Hero() {
   return (
     <section className="hero" id="top" ref={ref}>
       <div className="hero-inner container">
+        <p className="hero-eyebrow">{profile.realName}</p>
         <h1 className="hero-title" key={lang}>
           luko13
         </h1>
+        <p className="hero-headline">{t(profile.headline)}</p>
         <p className="hero-role">{t(profile.role)}</p>
+        <div className="hero-actions">
+          <a className="btn btn-primary" href="#projects" data-magnetic>
+            {t(ui.hero.ctaWork)}
+          </a>
+          <a className="btn btn-ghost" href="#contact">
+            {t(ui.hero.ctaContact)}
+          </a>
+          <a className="btn btn-quiet" href={t(profile.cv)} download>
+            {t(ui.hero.cv)} ↓
+          </a>
+        </div>
       </div>
       <span className="hero-kanji" lang="ja" aria-hidden="true">
         桜
