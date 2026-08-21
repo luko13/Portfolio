@@ -4,7 +4,7 @@ import { useReveal } from '../motion/useReveal'
 import { useLang } from '../i18n/LangContext'
 import { projects } from '../data/projects'
 import { ui } from '../data/ui'
-import { ProjectShot } from '../components/PlaceholderShot'
+import { ShotCarousel } from '../components/ShotCarousel'
 
 const KANJI = ['一', '二', '三', '四', '五', '六', '七', '八', '九']
 
@@ -47,10 +47,19 @@ export function FeaturedProjects() {
 
         <div className="fp-list">
           {featured.map((p, i) => (
-            <article className={`fp-item ${i % 2 === 1 ? 'flip' : ''}`} key={p.id}>
-              <div className="fp-media">
-                <ProjectShot project={p} />
-              </div>
+            <article
+              className={`fp-item ${i % 2 === 1 ? 'flip' : ''} ${p.images?.length ? '' : 'no-media'}`}
+              key={p.id}
+            >
+              {p.images?.length ? (
+                <div className="fp-media">
+                  <ShotCarousel project={p} />
+                </div>
+              ) : (
+                <span className="fp-watermark" lang="ja" aria-hidden="true">
+                  桜
+                </span>
+              )}
               <div className="fp-text">
                 <p className="fp-meta will-reveal">
                   <span className="fp-kanji" lang="ja" aria-hidden="true">
