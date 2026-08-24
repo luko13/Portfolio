@@ -24,7 +24,7 @@ export function Hero() {
         stagger: 0.055,
         delay: 0.15,
       })
-      gsap.from('.hero-headline, .hero-role, .hero-actions, .hero-scrollline', {
+      gsap.from('.hero-headline, .hero-role, .hero-actions, .hero-socials, .hero-scrollline', {
         opacity: 0,
         y: 24,
         duration: 0.8,
@@ -73,6 +73,13 @@ export function Hero() {
           <a className="btn btn-quiet" href={t(profile.cv)} download>
             {t(ui.hero.cv)} ↓
           </a>
+        </div>
+        <div className="hero-socials">
+          {profile.socials.map((s) => (
+            <a key={s.label} href={s.url} target="_blank" rel="noreferrer">
+              {s.label} ↗
+            </a>
+          ))}
         </div>
       </div>
       <span className="hero-kanji" lang="ja" aria-hidden="true">
