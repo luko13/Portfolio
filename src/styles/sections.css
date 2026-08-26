@@ -185,25 +185,24 @@ main,
 }
 
 .hero-title {
-  font-size: clamp(4.5rem, 14vw, 13rem);
+  font-size: var(--display-hero);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 0.95;
   color: var(--ink);
 }
 
+.hero-hud {
+  margin-bottom: 1rem;
+}
 
-.hero-kanji {
+/* Kanji 桜 a escala viewport, arte de fondo del acto I */
+.hero-kanji-art {
   position: absolute;
-  right: clamp(1rem, 5vw, 5rem);
-  top: 18%;
-  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
-  font-size: clamp(5rem, 12vw, 11rem);
-  color: var(--sakura-soft);
-  writing-mode: vertical-rl;
-  user-select: none;
-  pointer-events: none;
-  line-height: 1;
+  right: clamp(-2rem, 2vw, 4rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
 }
 
 .hero-scrollline {
@@ -903,15 +902,6 @@ main,
 }
 
 /* ============ HERO (propuesta de valor + CTAs) ============ */
-.hero-eyebrow {
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  margin-bottom: 1rem;
-}
-
 .hero-headline {
   margin-top: 1.25rem;
   max-width: 22ch;

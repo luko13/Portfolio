@@ -74,6 +74,37 @@
   mix-blend-mode: multiply;
 }
 
+/* Kanji a escala viewport: outline + relleno que se pinta con el scroll */
+.kanji-art {
+  position: relative;
+  display: inline-block;
+  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
+  font-size: var(--kanji-vh);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.kanji-art .kanji-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--accent-day);
+  opacity: 0.5;
+}
+
+.kanji-art .kanji-fill {
+  position: absolute;
+  inset: 0;
+  color: var(--accent-day);
+  opacity: 0.26;
+  clip-path: inset(100% 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kanji-art .kanji-fill {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 /* Ocultación accesible */
 .visually-hidden {
   position: absolute;
