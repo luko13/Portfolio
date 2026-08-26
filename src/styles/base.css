@@ -20,7 +20,7 @@ html.lenis body {
 }
 
 body {
-  background: var(--washi);
+  background: var(--sky);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1rem;

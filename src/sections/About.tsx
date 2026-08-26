@@ -48,7 +48,7 @@ export function About() {
       : ['multi-tenant SaaS', 'real customers', 'mobile apps live in the stores']
 
   return (
-    <section className="section about" id="about" ref={ref}>
+    <section className="section about" id="about" data-climate="bloom" ref={ref}>
       <span className="tategaki side-label" aria-hidden="true">
         {t(ui.sections.about)} · 一
       </span>

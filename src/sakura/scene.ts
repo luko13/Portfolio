@@ -148,15 +148,35 @@ export function createSakuraScene(canvas: HTMLCanvasElement): SakuraScene {
   let slowFrames = 0
   let degraded = false
 
+  // Tintes del ciclo del día: dayCycle escribe strings CSS en scrollBus;
+  // aquí se parsean solo cuando cambian y se persigue el objetivo con lerp
+  const palTargets = [new Color(), new Color(), new Color()]
+  const palCache = ['', '', '']
+  const palUniforms = [uniforms.uColorA, uniforms.uColorB, uniforms.uColorC]
+  const chasePalette = () => {
+    const pal = [scrollBus.palette.a, scrollBus.palette.b, scrollBus.palette.c]
+    for (let i = 0; i < 3; i++) {
+      if (palCache[i] !== pal[i]) {
+        palCache[i] = pal[i]
+        palTargets[i].set(pal[i])
+      }
+      palUniforms[i].value.lerp(palTargets[i], 0.05)
+    }
+  }
+
   const loop = (now: number) => {
     const dt = now - last
     last = now
     uniforms.uTime.value = now / 1000
-    // Lerp del viento de scroll (+ ráfagas del carrusel) y de la calma del footer
+    // Lerp del viento de scroll (+ ráfagas del carrusel + tormenta del acto
+    // hanafubuki) y de la calma del footer
     scrollBus.gust *= 0.94
     uniforms.uScroll.value +=
-      (scrollBus.velocity + scrollBus.gust - uniforms.uScroll.value) * 0.06
+      (scrollBus.velocity + scrollBus.gust + scrollBus.storm * 26 -
+        uniforms.uScroll.value) *
+      0.06
     uniforms.uCalm.value += (scrollBus.calm - uniforms.uCalm.value) * 0.04
+    chasePalette()
 
     // ponytail: degradación de un solo escalón; LOD progresivo si algún dispositivo lo pide
     if (!degraded && dt > 22) {

@@ -12,9 +12,25 @@
   --hanko: #c43a3e;
   --gold: #b99a66;
 
+  /* Tokens vivos del ciclo del día: dayCycle.ts los reescribe con el scroll.
+     Defaults = mediodía (bloom) para no depender de JS. */
+  --sky: var(--washi);
+  --paper: var(--washi-soft);
+  --accent-day: var(--sakura);
+  --sun-x: 18%;
+  --sun-y: 82%;
+  --sun-color: #f6d9c4;
+
   /* Tipografía */
   --font-display: 'Shippori Mincho B1', 'Times New Roman', serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  /* Escala editorial */
+  --display-hero: clamp(3.4rem, 12.5vw, 13rem);
+  --display-world: clamp(2.6rem, 8.5vw, 8rem);
+  --kanji-vh: min(78vh, 68vw);
+  --micro: 0.6875rem;
 
   /* Sistema de movimiento: un solo easing para entradas */
   --ease-osaka: cubic-bezier(0.22, 1, 0.36, 1);

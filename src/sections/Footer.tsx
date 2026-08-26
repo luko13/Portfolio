@@ -55,7 +55,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="footer" id="contact" ref={ref}>
+    <footer className="footer" id="contact" data-climate="dusk" ref={ref}>
       <div className="container">
         <a className="footer-cta will-reveal" href={`mailto:${profile.email}`} data-magnetic>
           {t(ui.footer.cta)}

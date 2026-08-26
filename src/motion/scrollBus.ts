@@ -5,4 +5,7 @@ export const scrollBus = {
   progress: 0, // 0..1 del documento
   calm: 0, // 0..1, sube al llegar al footer para amainar el viento
   gust: 0, // ráfaga puntual (transiciones del carrusel); decae en la escena
+  storm: 0, // 0..1, viento sostenido del acto hanafubuki (escribe dayCycle)
+  // Tinte de pétalos del ciclo del día (strings CSS; la escena los convierte)
+  palette: { a: '#e8a7b7', b: '#d998ab', c: '#f6dde3' },
 }

@@ -9,7 +9,7 @@ export function Skills() {
   const ref = useReveal<HTMLElement>([lang])
 
   return (
-    <section className="section skills" id="skills" ref={ref}>
+    <section className="section skills" id="skills" data-climate="storm" ref={ref}>
       <span className="tategaki side-label" aria-hidden="true">
         {t(ui.sections.skills)} · 四
       </span>
