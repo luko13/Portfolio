@@ -159,15 +159,39 @@ main,
   z-index: var(--z-content);
 }
 
-/* ============ LABEL LATERAL ============ */
-.side-label {
-  position: absolute;
-  top: calc(var(--section-gap) / 2 + 1rem);
-  right: calc(var(--gutter) / 2 - 0.5rem);
+/* ============ RELOJ DE ACTOS (tategaki lateral fijo) ============ */
+.act-clock {
+  position: fixed;
+  right: clamp(0.4rem, 1.2vw, 1.4rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-nav);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
 }
 
-@media (max-width: 900px) {
-  .side-label {
+.act-clock a {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  letter-spacing: 0.3em;
+  color: var(--ink-dim);
+  opacity: 0.45;
+  transition: opacity 0.5s var(--ease-osaka), color 0.5s var(--ease-osaka);
+}
+
+.act-clock a.active {
+  color: var(--accent-day);
+  opacity: 1;
+}
+
+.act-clock a:hover {
+  opacity: 1;
+}
+
+@media (max-width: 1100px) {
+  .act-clock {
     display: none;
   }
 }

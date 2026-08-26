@@ -56,9 +56,6 @@ export function Worlds() {
 
   return (
     <section className="section projects" id="projects" ref={ref}>
-      <span className="tategaki side-label" aria-hidden="true">
-        {t(ui.sections.projects)} · 三
-      </span>
       <div className="container">
         <div className="section-head will-reveal">
           <span className="kanji-num" lang="ja">

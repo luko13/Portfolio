@@ -50,9 +50,6 @@ export function About() {
 
   return (
     <section className="section about" id="about" data-climate="bloom" ref={ref}>
-      <span className="tategaki side-label" aria-hidden="true">
-        {t(ui.sections.about)} · 一
-      </span>
       <div className="container about-grid">
         <div className="about-side will-reveal">
           <div className="about-seal">

@@ -14,6 +14,14 @@ export const ui = {
     projects: { es: 'Proyectos destacados', en: 'Selected work' } as L10n,
     index: { es: 'Side projects y más', en: 'Side projects & more' } as L10n,
   },
+  // Actos del día de hanami (reloj lateral y HUD)
+  acts: {
+    dawn: { es: 'Amanecer', en: 'Dawn' } as L10n,
+    bloom: { es: 'Plena floración', en: 'Full bloom' } as L10n,
+    work: { es: 'Los mundos', en: 'The worlds' } as L10n,
+    storm: { es: 'Lluvia de pétalos', en: 'Petal storm' } as L10n,
+    dusk: { es: 'Atardecer', en: 'Dusk' } as L10n,
+  },
   hero: {
     intro: { es: 'Portfolio', en: 'Portfolio' } as L10n,
     ctaWork: { es: 'Ver proyectos', en: 'View work' } as L10n,

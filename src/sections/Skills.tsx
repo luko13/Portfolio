@@ -11,9 +11,6 @@ export function Skills() {
 
   return (
     <section className="section skills" id="skills" data-climate="storm" ref={ref}>
-      <span className="tategaki side-label" aria-hidden="true">
-        {t(ui.sections.skills)} · 四
-      </span>
       <div className="container">
         <div className="section-head will-reveal">
           <span className="kanji-num" lang="ja">

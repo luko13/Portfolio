@@ -7,6 +7,7 @@ import { SakuraCanvas } from './sakura/SakuraCanvas'
 import { Preloader } from './sections/Preloader'
 import { Cursor } from './components/Cursor'
 import { Nav } from './components/Nav'
+import { ActClock } from './components/ActClock'
 import { Hero } from './sections/Hero'
 import { About } from './sections/About'
 import { Skills } from './sections/Skills'
@@ -27,6 +28,7 @@ export default function App() {
       <div className="sun" aria-hidden="true" />
       <SakuraCanvas />
       <Nav />
+      <ActClock />
       <main>
         <Hero />
         <About />
