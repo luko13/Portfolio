@@ -759,10 +759,32 @@ main,
 .footer-sign {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
   margin-top: 2.5rem;
   font-size: 0.8125rem;
   color: var(--ink-dim);
+}
+
+/* Enso que se dibuja al llegar, con el hanko firmando dentro */
+.footer-enso {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.footer-enso .enso {
+  width: 108px;
+  height: 108px;
+  color: var(--ink);
+  opacity: 0.72;
+}
+
+.footer-enso-hanko {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
 }
 
 /* ============ BOTONES ============ */

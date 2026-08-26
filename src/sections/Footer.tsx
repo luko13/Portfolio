@@ -6,6 +6,7 @@ import { useLang } from '../i18n/LangContext'
 import { profile } from '../data/profile'
 import { ui } from '../data/ui'
 import { Hanko } from '../components/Hanko'
+import { SumiStroke } from '../components/SumiStroke'
 
 function useLocalTime(timezone: string) {
   const [time, setTime] = useState('')
@@ -87,7 +88,12 @@ export function Footer() {
         </div>
 
         <div className="footer-sign will-reveal">
-          <Hanko size={44} />
+          <span className="footer-enso">
+            <SumiStroke variant="enso" className="enso" />
+            <span className="footer-enso-hanko">
+              <Hanko size={40} />
+            </span>
+          </span>
           <p>
             © 2026 {profile.realName}. {t(ui.footer.colophon)}
           </p>

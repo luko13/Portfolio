@@ -2,6 +2,7 @@ import { useReveal } from '../motion/useReveal'
 import { useLang } from '../i18n/LangContext'
 import { projects } from '../data/projects'
 import { ui } from '../data/ui'
+import { SumiStroke } from '../components/SumiStroke'
 
 export function ProjectIndex() {
   const { lang, t } = useLang()
@@ -17,6 +18,7 @@ export function ProjectIndex() {
           </span>
           <h2>{t(ui.sections.index)}</h2>
         </div>
+        <SumiStroke variant="underline" className="head-stroke" />
         <ul className="pindex-list will-reveal">
           {rest.map((p) => (
             <li key={p.id}>

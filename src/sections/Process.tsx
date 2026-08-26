@@ -1,6 +1,7 @@
 import { useReveal } from '../motion/useReveal'
 import { useLang } from '../i18n/LangContext'
 import { ui } from '../data/ui'
+import { SumiStroke } from '../components/SumiStroke'
 
 const KANJI = ['一', '二', '三', '四', '五']
 
@@ -17,6 +18,7 @@ export function Process() {
           </span>
           <h2>{t(ui.process.title)}</h2>
         </div>
+        <SumiStroke variant="underline" className="head-stroke" />
         <p className="process-lead will-reveal">{t(ui.process.lead)}</p>
         <ol className="process-steps">
           {ui.process.steps.map((step, i) => (

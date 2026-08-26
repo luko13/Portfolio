@@ -5,6 +5,7 @@ import { useLang } from '../i18n/LangContext'
 import { profile, experience, education } from '../data/profile'
 import { ui } from '../data/ui'
 import { Hanko } from '../components/Hanko'
+import { SumiStroke } from '../components/SumiStroke'
 
 export function About() {
   const { lang, t } = useLang()
@@ -67,6 +68,7 @@ export function About() {
             </span>
             <h2>{t(ui.sections.about)}</h2>
           </div>
+          <SumiStroke variant="underline" className="head-stroke" />
           <p className="about-p will-reveal">{highlight(t(profile.bio1), kw)}</p>
           <p className="about-p will-reveal">{t(profile.bio2)}</p>
 

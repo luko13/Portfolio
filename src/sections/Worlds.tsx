@@ -9,6 +9,7 @@ import { projects } from '../data/projects'
 import { ui } from '../data/ui'
 import { ShotCarousel } from '../components/ShotCarousel'
 import { KanjiArt } from '../components/KanjiArt'
+import { SumiStroke } from '../components/SumiStroke'
 
 const featured = projects.filter((p) => p.featured)
 
@@ -65,6 +66,7 @@ export function Worlds() {
           </span>
           <h2>{t(ui.sections.projects)}</h2>
         </div>
+        <SumiStroke variant="underline" className="head-stroke" />
       </div>
 
       <div className="worlds">

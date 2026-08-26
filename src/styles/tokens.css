@@ -41,6 +41,7 @@
   --page-max: 1400px;
   --gutter: clamp(1.25rem, 4vw, 4rem);
   --section-gap: clamp(7rem, 16vh, 12rem);
+  --head-gap: clamp(2.5rem, 6vh, 4.5rem);
 
   /* Capas */
   --z-canvas: 0;

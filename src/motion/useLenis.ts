@@ -19,6 +19,16 @@ export function useLenis() {
     gsap.ticker.add(raf)
     gsap.ticker.lagSmoothing(0)
 
+    // Las imágenes lazy y el cambio de idioma alteran la altura del documento
+    // tras el refresh inicial: sin esto, los triggers cercanos al final quedan
+    // con posiciones inalcanzables (p. ej. la firma del footer)
+    let refreshTimer = 0
+    const ro = new ResizeObserver(() => {
+      clearTimeout(refreshTimer)
+      refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 200)
+    })
+    ro.observe(document.body)
+
     // Anclas de la nav a través de Lenis
     const onClick = (ev: MouseEvent) => {
       const a = (ev.target as HTMLElement).closest('a[href^="#"]')
@@ -34,6 +44,8 @@ export function useLenis() {
 
     return () => {
       document.removeEventListener('click', onClick)
+      ro.disconnect()
+      clearTimeout(refreshTimer)
       gsap.ticker.remove(raf)
       lenis.destroy()
     }

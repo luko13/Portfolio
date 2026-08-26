@@ -3,6 +3,7 @@ import { useLang } from '../i18n/LangContext'
 import { skillGroups, marqueeItems } from '../data/skills'
 import { ui } from '../data/ui'
 import { Marquee } from '../components/Marquee'
+import { SumiStroke } from '../components/SumiStroke'
 
 export function Skills() {
   const { lang, t } = useLang()
@@ -20,6 +21,7 @@ export function Skills() {
           </span>
           <h2>{t(ui.sections.skills)}</h2>
         </div>
+        <SumiStroke variant="underline" className="head-stroke" />
         <div className="skills-grid">
           {skillGroups.map((g) => (
             <div className="skill-group will-reveal" key={g.label.en}>

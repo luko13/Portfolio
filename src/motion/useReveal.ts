@@ -18,7 +18,9 @@ export function useReveal<T extends HTMLElement>(deps: unknown[] = []): RefObjec
             opacity: 1,
             y: 0,
             duration: 0.8,
-            scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+            // clamp(): los elementos pegados al final del documento (p. ej.
+            // la firma del footer) tendrían un start inalcanzable sin esto
+            scrollTrigger: { trigger: el, start: 'clamp(top 85%)', once: true },
           },
         )
       })
