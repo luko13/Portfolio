@@ -1,0 +1,18 @@
+# luko13 — Luis Santiago Chillón Serratosa
+
+> Portfolio of a full-stack developer based in Fuengirola, Spain. Founder of
+> Jornal and co-founder of mmento. Builds complete web products, from the
+> interface to the infrastructure. Single-page site with a Japanese hanami
+> concept: the scroll traverses one day under the cherry tree.
+
+## Featured work
+
+- [mmento](https://mmentoapp.com): mobile app where magicians keep their repertoire; offline-first, pgvector semantic search, live on the App Store and Google Play.
+- [Jornal](https://jornal.work): Spanish labour-law compliant time tracking SaaS; multi-tenant Postgres RLS, in production with real customers.
+- mmento Analytics: internal product dashboard; 34 Postgres functions, cohort retention computed live.
+
+## Contact
+
+- Email: luislk1996chs@gmail.com
+- GitHub: https://github.com/luko13
+- Site: https://luko13.vercel.app (ES/EN)
