@@ -11,7 +11,7 @@ import { Hero } from './sections/Hero'
 import { About } from './sections/About'
 import { Skills } from './sections/Skills'
 import { Process } from './sections/Process'
-import { FeaturedProjects } from './sections/FeaturedProjects'
+import { Worlds } from './sections/Worlds'
 import { ProjectIndex } from './sections/ProjectIndex'
 import { Footer } from './sections/Footer'
 
@@ -31,7 +31,7 @@ export default function App() {
         <Hero />
         <About />
         <Process />
-        <FeaturedProjects />
+        <Worlds />
         <Skills />
         <ProjectIndex />
       </main>

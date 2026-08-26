@@ -1,0 +1,123 @@
+/* ============ MUNDOS POR PROYECTO ============ */
+/* Cada caso de estudio es un "mundo": la página entera cambia de clima al
+   entrar (dayCycle tiñe --sky/--paper/--accent-day); aquí solo vive el
+   layout y los acentos locales (--w-accent / --w-deep, inline por mundo). */
+
+.worlds {
+  display: grid;
+  gap: clamp(6rem, 14vh, 11rem);
+  margin-top: clamp(2rem, 5vh, 4rem);
+}
+
+.world {
+  position: relative;
+}
+
+/* Monograma kanji del mundo a escala viewport, detrás del contenido */
+.world-kanji {
+  position: absolute;
+  top: -4rem;
+  right: clamp(-3rem, 1vw, 3rem);
+  z-index: -1;
+}
+
+.world.flip .world-kanji {
+  right: auto;
+  left: clamp(-3rem, 1vw, 3rem);
+}
+
+.world-head {
+  margin-bottom: clamp(1.5rem, 4vh, 3rem);
+}
+
+.world-title {
+  font-size: var(--display-world);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--w-deep, var(--ink));
+  margin-top: 0.5rem;
+}
+
+.world-tagline {
+  margin-top: 0.9rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.2vw, 1.65rem);
+  font-weight: 700;
+  max-width: 30ch;
+  color: var(--ink);
+}
+
+.world-body {
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: start;
+}
+
+.world.flip .world-body {
+  grid-template-columns: 45fr 55fr;
+}
+
+.world.flip .world-media {
+  order: 2;
+}
+
+/* La media queda pegada mientras el texto del caso avanza */
+.world-media {
+  position: sticky;
+  top: 13vh;
+}
+
+/* Franja HUD de cierre del mundo */
+.world-strip {
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid
+    color-mix(in srgb, var(--w-accent, var(--gold)) 45%, transparent);
+}
+
+.world-strip span {
+  color: var(--w-accent, var(--sakura-deep));
+}
+
+/* Acentos locales sobre los bloques de caso reutilizados */
+.world .case-block h4 {
+  color: var(--w-deep, var(--sakura-deep));
+}
+
+.world .case-decisions li::before {
+  background: var(--w-accent, var(--sakura));
+}
+
+.world .fp-result {
+  border-left-color: var(--w-accent, var(--sakura));
+}
+
+.world .fp-stack li {
+  border-color: color-mix(in srgb, var(--w-accent, var(--washi-deep)) 40%, transparent);
+  background: color-mix(in srgb, var(--paper) 60%, transparent);
+}
+
+.world .fp-link {
+  border-bottom-color: var(--w-accent, var(--sakura-deep));
+}
+
+.world .fp-link:hover {
+  color: var(--w-deep, var(--sakura-deep));
+}
+
+@media (max-width: 900px) {
+  .world-body,
+  .world.flip .world-body {
+    grid-template-columns: 1fr;
+  }
+  .world.flip .world-media {
+    order: 0;
+  }
+  .world-media {
+    position: static;
+  }
+  .world-kanji {
+    top: -2rem;
+  }
+}

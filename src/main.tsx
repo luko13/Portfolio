@@ -12,6 +12,7 @@ import './styles/tokens.css'
 import './styles/base.css'
 import './styles/utils.css'
 import './styles/sections.css'
+import './styles/worlds.css'
 import './motion/gsap'
 import App from './App'
 

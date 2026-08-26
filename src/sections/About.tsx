@@ -31,9 +31,9 @@ export function About() {
 
   // Marca palabras clave de la bio con subrayado dibujado
   const highlight = (text: string, words: string[]) => {
-    let parts: (string | React.ReactNode)[] = [text]
+    let parts: React.ReactNode[] = [text]
     words.forEach((w, wi) => {
-      parts = parts.flatMap((p) => {
+      parts = parts.flatMap((p): React.ReactNode[] => {
         if (typeof p !== 'string' || !p.includes(w)) return [p]
         const [a, b] = p.split(w)
         return [a, <span className="kw" key={`${wi}-${w}`}>{w}</span>, b]

@@ -1,8 +1,19 @@
 import type { L10n } from '../i18n/LangContext'
 
+// Identidad de clima de cada mundo destacado: el ciclo del día (dayCycle)
+// tiñe toda la página con estos tonos al entrar en su sección.
+export interface ProjectWorld {
+  sky: string // fondo de página (siempre claro)
+  paper: string // superficies
+  accent: string // subrayados, HUD, viñetas
+  deep: string // solo display grande
+  kanji: string // monograma a escala viewport
+}
+
 export interface Project {
   id: string
   featured: boolean
+  world?: ProjectWorld
   title: string
   year: string
   kind: L10n
@@ -26,6 +37,13 @@ export const projects: Project[] = [
   {
     id: 'mmento',
     featured: true,
+    world: {
+      sky: '#f1edf7',
+      paper: '#eae3f2',
+      accent: '#8d7bb8',
+      deep: '#584d78',
+      kanji: '魔', // magia
+    },
     title: 'mmento',
     year: '2025',
     kind: { es: 'App móvil', en: 'Mobile app' },
@@ -78,6 +96,13 @@ export const projects: Project[] = [
   {
     id: 'jornal',
     featured: true,
+    world: {
+      sky: '#ecf2ee',
+      paper: '#e2ece6',
+      accent: '#6f9e8f',
+      deep: '#3f6e63',
+      kanji: '時', // tiempo
+    },
     title: 'Jornal',
     year: '2025',
     kind: { es: 'SaaS B2B', en: 'B2B SaaS' },
@@ -129,6 +154,13 @@ export const projects: Project[] = [
   {
     id: 'mmento-analytics',
     featured: true,
+    world: {
+      sky: '#f7f0e2',
+      paper: '#f1e7d3',
+      accent: '#b99a66',
+      deep: '#7d6538',
+      kanji: '数', // números
+    },
     title: 'mmento Analytics',
     year: '2025',
     kind: { es: 'Dashboard', en: 'Dashboard' },

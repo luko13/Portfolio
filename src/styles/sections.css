@@ -375,51 +375,7 @@ main,
   }
 }
 
-/* ============ PROYECTOS DESTACADOS ============ */
-.fp-list {
-  display: grid;
-  gap: clamp(5rem, 12vh, 9rem);
-}
-
-.fp-item {
-  display: grid;
-  grid-template-columns: 60fr 40fr;
-  gap: clamp(2rem, 4vw, 4.5rem);
-  align-items: center;
-}
-
-.fp-item.flip {
-  grid-template-columns: 40fr 60fr;
-}
-
-.fp-item.flip .fp-media {
-  order: 2;
-}
-
-.fp-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  margin-bottom: 0.75rem;
-}
-
-.fp-kanji {
-  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
-  font-size: 1.1rem;
-  color: var(--sakura-deep);
-  letter-spacing: 0;
-}
-
-.fp-text h3 {
-  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
-  margin-bottom: 0.6rem;
-}
-
+/* ============ TEXTOS DE CASO DE ESTUDIO (usados por los mundos) ============ */
 .fp-tagline {
   font-size: clamp(1.05rem, 1.7vw, 1.25rem);
   margin-bottom: 1rem;
@@ -469,16 +425,6 @@ main,
 
 .fp-link:hover {
   color: var(--sakura-deep);
-}
-
-@media (max-width: 900px) {
-  .fp-item,
-  .fp-item.flip {
-    grid-template-columns: 1fr;
-  }
-  .fp-item.flip .fp-media {
-    order: 0;
-  }
 }
 
 /* ============ CARRUSEL DE CAPTURAS ============ */
@@ -641,39 +587,6 @@ main,
     transition: opacity 0.15s linear;
     scale: 1;
   }
-}
-
-/* ============ DESTACADO SIN IMAGEN (editorial) ============ */
-.fp-item.no-media {
-  position: relative;
-  grid-template-columns: 1fr;
-  padding-block: clamp(2rem, 5vh, 4rem);
-}
-
-.fp-item.no-media .fp-text {
-  max-width: 60ch;
-  position: relative;
-  z-index: 1;
-}
-
-.fp-item.no-media .fp-context,
-.fp-item.no-media .fp-result {
-  max-width: 56ch;
-  font-size: 1.0625rem;
-}
-
-.fp-watermark {
-  position: absolute;
-  top: 50%;
-  right: clamp(0rem, 6vw, 8rem);
-  transform: translateY(-50%);
-  font-family: 'Hiragino Mincho ProN', 'Yu Mincho', 'Noto Serif JP', serif;
-  font-size: clamp(12rem, 28vw, 24rem);
-  line-height: 1;
-  color: var(--sakura-soft);
-  opacity: 0.45;
-  user-select: none;
-  pointer-events: none;
 }
 
 /* ============ ÍNDICE DE PROYECTOS ============ */
