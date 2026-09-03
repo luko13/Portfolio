@@ -79,7 +79,7 @@ export function Hero() {
           <span aria-hidden="true">·</span> <span lang="ja">[01] 夜明け</span>
         </p>
         <h1 className="hero-title" key={lang}>
-          luko13
+          Luis
         </h1>
         <div className="hero-rest">
           <p className="hero-headline">{t(profile.headline)}</p>
