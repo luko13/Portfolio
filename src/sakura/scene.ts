@@ -178,7 +178,8 @@ export function createSakuraScene(canvas: HTMLCanvasElement): SakuraScene {
     uniforms.uCalm.value += (scrollBus.calm - uniforms.uCalm.value) * 0.04
     chasePalette()
 
-    // ponytail: degradación de un solo escalón; LOD progresivo si algún dispositivo lo pide
+    // Degradación de un solo escalón; si algún dispositivo lo necesita, se puede
+    // afinar a LOD progresivo más adelante
     if (!degraded && dt > 22) {
       slowFrames++
       if (slowFrames > 120) {
