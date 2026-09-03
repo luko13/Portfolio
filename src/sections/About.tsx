@@ -45,8 +45,8 @@ export function About() {
 
   const kw =
     lang === 'es'
-      ? ['SaaS multi-tenant', 'clientes reales', 'apps móviles publicadas']
-      : ['multi-tenant SaaS', 'real customers', 'mobile apps live in the stores']
+      ? ['lanzamiento comercial', 'fase final de desarrollo']
+      : ['commercial launch', 'final stage of development']
 
   return (
     <section className="section about" id="about" data-climate="bloom" ref={ref}>

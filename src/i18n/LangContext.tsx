@@ -3,14 +3,14 @@ import type { ReactNode } from 'react'
 
 const META = {
   es: {
-    title: 'Luis Chillón (luko13) — Full-stack Developer | React, TypeScript, PostgreSQL',
+    title: 'Luis Chillón (luko13) — Software Engineer | React Native, TypeScript, React, Next.js, PostgreSQL',
     description:
-      'Construyo productos web completos, de la interfaz a la infraestructura. Fundador de Jornal y cofundador de MMENTO: SaaS y apps móviles en producción.',
+      'Software Engineer especializado en React Native, TypeScript, React, Next.js y PostgreSQL. Fundador de Jornal y cofundador de MMENTO: SaaS y apps móviles.',
   },
   en: {
-    title: 'Luis Chillón (luko13) — Full-stack Developer | React, TypeScript, PostgreSQL',
+    title: 'Luis Chillón (luko13) — Software Engineer | React Native, TypeScript, React, Next.js, PostgreSQL',
     description:
-      'I build complete web products, from the interface to the infrastructure. Founder of Jornal and co-founder of MMENTO: SaaS and mobile apps in production.',
+      'Software Engineer specializing in React Native, TypeScript, React, Next.js and PostgreSQL. Founder of Jornal and co-founder of MMENTO: SaaS and mobile apps.',
   },
 }
 

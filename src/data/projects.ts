@@ -31,7 +31,7 @@ export interface Project {
   repo?: string
 }
 
-// featured: true = productos terminados y en producción (casos de estudio grandes).
+// featured: true = casos de estudio principales del portfolio.
 // El resto aparece en el índice de side projects.
 export const projects: Project[] = [
   {
@@ -45,7 +45,7 @@ export const projects: Project[] = [
       kanji: '魔', // magia
     },
     title: 'mmento',
-    year: '2025',
+    year: '2023 — ',
     kind: { es: 'App móvil', en: 'Mobile app' },
     tagline: {
       es: 'La app donde los magos guardan sus secretos.',
@@ -56,8 +56,8 @@ export const projects: Project[] = [
       en: 'Every trick splits the effect from the method, each with its own video. Semantic search across 20,000+ magic products and an AI that answers questions about your own repertoire.',
     },
     result: {
-      es: 'Detrás: arquitectura offline-first con cola de sincronización idempotente, búsqueda vectorial con pgvector, vídeo con subidas resumibles a Cloudflare Stream y compras in-app. Publicada en App Store y Google Play.',
-      en: 'Under the hood: offline-first architecture with an idempotent sync queue, pgvector semantic search, resumable video uploads to Cloudflare Stream and in-app purchases. Live on the App Store and Google Play.',
+      es: 'Detrás: arquitectura offline-first con cola de sincronización idempotente, búsqueda vectorial con pgvector, vídeo con subidas resumibles a Cloudflare Stream y compras in-app. Actualmente en fase final de desarrollo, con el pipeline de publicación para iOS y Android preparado para su lanzamiento público.',
+      en: 'Under the hood: offline-first architecture with an idempotent sync queue, pgvector semantic search, resumable video uploads to Cloudflare Stream and in-app purchases. Currently in the final stage of development, with the iOS/Android release pipeline prepared ahead of public launch.',
     },
     problem: {
       es: 'Un mago guarda su repertorio en libretas, vídeos sueltos y capturas: nada de eso se busca ni se recupera cuando lo necesita sobre el escenario.',
@@ -104,7 +104,7 @@ export const projects: Project[] = [
       kanji: '時', // tiempo
     },
     title: 'Jornal',
-    year: '2025',
+    year: '2024 — ',
     kind: { es: 'SaaS B2B', en: 'B2B SaaS' },
     tagline: {
       es: 'El control horario que cumple la ley por ti.',
@@ -115,8 +115,8 @@ export const projects: Project[] = [
       en: 'Server-stamped clock-ins (manual, QR, geofence or automatic), shift planning with plan-vs-reality, and leave computed on each person’s actual schedule.',
     },
     result: {
-      es: 'Detrás: multi-tenant con aislamiento RLS probado por scripts que intentan romperlo, inmutabilidad y auditoría append-only a nivel de base de datos, backups verificados restaurándolos y 112 migraciones aditivas tras feature flags. En producción con clientes reales.',
-      en: 'Under the hood: multi-tenant RLS isolation proven by scripts that try to break it, database-level immutability with append-only auditing, backups verified by restoring them, and 112 additive migrations behind feature flags. In production with real customers.',
+      es: 'Detrás: multi-tenant con aislamiento RLS probado por scripts que intentan romperlo, inmutabilidad y auditoría append-only a nivel de base de datos, backups verificados restaurándolos y 112 migraciones aditivas tras feature flags. Actualmente se está preparando para su lanzamiento comercial tras evolucionar desde una solución nacida de necesidades operativas reales.',
+      en: 'Under the hood: multi-tenant RLS isolation proven by scripts that try to break it, database-level immutability with append-only auditing, backups verified by restoring them, and 112 additive migrations behind feature flags. Currently being prepared for commercial launch after evolving from a solution built around real operational needs.',
     },
     problem: {
       es: 'El registro horario es obligatorio en España y la mayoría de pymes lo resuelve con hojas de cálculo que no aguantan una inspección.',
