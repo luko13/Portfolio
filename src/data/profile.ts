@@ -11,8 +11,8 @@ export const profile = {
     en: 'I build complete web products, from the interface to the infrastructure.',
   } as L10n,
   role: {
-    es: 'Software Engineer especializado en React Native, TypeScript, React, Next.js y PostgreSQL. Fundador de Jornal y cofundador de MMENTO.',
-    en: 'Software Engineer specializing in React Native, TypeScript, React, Next.js and PostgreSQL. Founder of Jornal and co-founder of MMENTO.',
+    es: 'Con habilidades de Software Engineer, especializado en React Native, TypeScript, React, Next.js y PostgreSQL. Fundador de Jornal y cofundador de MMENTO.',
+    en: 'With Software Engineer skills, specializing in React Native, TypeScript, React, Next.js and PostgreSQL. Founder of Jornal and co-founder of MMENTO.',
   } as L10n,
 
   bio1: {
